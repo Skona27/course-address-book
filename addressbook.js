@@ -1,3 +1,6 @@
+// turn off the list of a new contact
+document.getElementById("contactList").style.display = "none";
+
 function createContact(firstName, lastName, phoneNumber, email) { 
     return{
         firstName: firstName,
@@ -24,21 +27,27 @@ var contactList = [createContact(
     sampleContact.email
 )];
 
-//onload sample contact
 function showContact(contactObj) {
-  document.getElementById('contactList').innerHTML += '<hr><h4 id="contactTitle">'+contactObj.getFullName()+'</h4>'  
+  document.getElementById('contactTitle').innerHTML = contactObj.getFullName();    
+  document.getElementById('firstName').innerHTML = contactObj.firstName;  
+  document.getElementById('lastName').innerHTML = contactObj.lastName;    
+  document.getElementById('phoneNumber').innerHTML = contactObj.phoneNumber;
+  document.getElementById('email').innerHTML = contactObj.email;
+}
+
+
+//show the list of contacts
+function showList(contactObj) {
+  document.getElementById('contactList').innerHTML += '<hr><h4 id="contactTitle">'+contactObj.getFullName()+'</h4>';  
     
   document.getElementById('contactList').innerHTML += '<li class="list-group-item">First Name:'+'<h5><span class="badge badge-secondary" id="firstName">'+contactObj.firstName+'</span></h5></li>';
     
-//  document.getElementById('contactList').innerHTML = '<li class="list-group-item">Last Name:'+'<h5><span class="badge badge-secondary" id="lastName">'+contactObj.lastName+'</span></h5></li>';
+  document.getElementById('contactList').innerHTML += '<li class="list-group-item">Last Name:'+'<h5><span class="badge badge-secondary" id="lastName">'+contactObj.lastName+'</span></h5></li>';
     
+  document.getElementById('contactList').innerHTML += '<li class="list-group-item">Phone Number:'+'<h5><span class="badge badge-secondary" id="phoneNumber">'+contactObj.phoneNumber+'</span></h5></li>';
+
+  document.getElementById('contactList').innerHTML += '<li class="list-group-item">Email:'+'<h5><span class="badge badge-secondary" id="email">'+contactObj.email+'</span></h5></li>';
     
-    
-    
-    
-    
-  document.getElementById('phoneNumber').innerHTML = contactObj.phoneNumber;
-  document.getElementById('email').innerHTML = contactObj.email;
 }
 
 //click a button to create a new contact and show it in the list
@@ -54,31 +63,23 @@ document.getElementById("createNewContact").addEventListener('click', function(e
 //save the contact    
     contactList.push(newContact);
     
+//show the contact
+    document.getElementById("contactList").style.display = "block";
+    showContact(newContact);
+    
     e.preventDefault();
 });
 
+
 //click to show the list of saved contacts
 document.getElementById('showContactList').addEventListener('click', function(){
+    
+    //close the form of Sample Contact
+    document.getElementById("contactList").style.display = "block";
+    // Looping through the object of contacts
     contactList.forEach(function(index){
-    showContact(index);
+    showList(index);
         
     });
     
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
