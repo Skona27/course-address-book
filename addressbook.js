@@ -60,12 +60,22 @@ document.getElementById("createNewContact").addEventListener('click', function(e
 //create a contact
     var newContact = new createContact(inputFirstName, inputLastName, inputPhoneNumber, inputEmail);
     
-//save the contact    
-    contactList.push(newContact);
     
-//show the contact
-    document.getElementById("contactList").style.display = "block";
-    showContact(newContact);
+//save the contact but first fill all blank spaces
+    if (inputFirstName === "") {
+        alert("Please type first name");
+    } else if (inputLastName === "") {
+        alert("Please type last name")
+    } else if (inputPhoneNumber === "") {
+        alert("Please type phone number")       
+    } else if (inputEmail === "") {
+        alert("Please type email");
+    } else {
+        contactList.push(newContact);
+        //show the contact
+        document.getElementById("contactList").style.display = "block";
+        showContact(newContact);
+    }
     
     e.preventDefault();
 });
@@ -83,3 +93,7 @@ document.getElementById('showContactList').addEventListener('click', function(){
     });
     
 });
+
+
+// To do: remove sample contact when contacts button clicked
+// when clicking button submit, contact lists turns off.
