@@ -1,8 +1,9 @@
 // turn off the list of a new contact
 document.getElementById("contactList").style.display = "none";
 
-function createContact(firstName, lastName, phoneNumber, email) { 
+function createContact(id, firstName, lastName, phoneNumber, email) { 
     return{
+        id: id,
         firstName: firstName,
         lastName: lastName,
         phoneNumber: phoneNumber,
@@ -13,14 +14,19 @@ function createContact(firstName, lastName, phoneNumber, email) {
     }
 }
 
+//unique ID of the sample contact
+var uniqueID = 0;
+
 var sampleContact = {
+  id: uniqueID,
   firstName: "Bill",
   lastName: "Door",
   phoneNumber: "01 294 323 434",
-  email: "billdoor@microsoft.com",
+  email: "billdoor@microsoft.com"
 }
 
 var contactList = [createContact(
+    sampleContact.id,
     sampleContact.firstName, 
     sampleContact.lastName,
     sampleContact.phoneNumber, 
@@ -57,8 +63,6 @@ document.getElementById("createNewContact").addEventListener('click', function(e
     var inputPhoneNumber = document.getElementById("inputPhoneNumber").value;
     var inputEmail = document.getElementById("inputEmail").value;
     var phoneNumberString = Number(inputPhoneNumber);
-//create a contact
-    var newContact = new createContact(inputFirstName, inputLastName, inputPhoneNumber, inputEmail);
     
     console.log(phoneNumberString);
     
@@ -78,6 +82,11 @@ document.getElementById("createNewContact").addEventListener('click', function(e
         alert("Please type email");
     }
      else {
+      //assign unique ID to the contact
+      uniqueID++;
+      //create a contact
+      var newContact = new createContact(uniqueID, inputFirstName, inputLastName, inputPhoneNumber, inputEmail);
+
         contactList.push(newContact);
         //show the contact
         document.getElementById("contactList").style.display = "block";
@@ -100,7 +109,3 @@ document.getElementById('showContactList').addEventListener('click', function(){
     });
     
 });
-
-
-// To do: remove sample contact when contacts button clicked
-// when clicking button submit, contact lists turns off.
