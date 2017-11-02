@@ -47,7 +47,9 @@ function showList(contactObj) {
   document.getElementById('contactList').innerHTML += '<li class="list-group-item">Phone Number:'+'<h5><span class="badge badge-secondary" id="phoneNumber">'+contactObj.phoneNumber+'</span></h5></li>';
 
   document.getElementById('contactList').innerHTML += '<li class="list-group-item">Email:'+'<h5><span class="badge badge-secondary" id="email">'+contactObj.email+'</span></h5></li>';
-    
+   
+  //a button to duplicate the contact 
+  document.getElementById('contactList').innerHTML += '<button type="button" id="'+contactObj.getFullName()+'" class="btn btn-default duplicateContact">Duplicate</button';  
 }
 
 //click a button to create a new contact and show it in the list
@@ -82,4 +84,13 @@ document.getElementById('showContactList').addEventListener('click', function(){
         
     });
     
+});
+
+
+//check if the duplicate button was clicked
+document.querySelector("#contactList").addEventListener('click', function(e){
+  if(e.target.className === 'btn btn-default duplicateContact'){
+    //get the full name of the contact which we want to duplicate
+    console.log(e.target.id);
+  }
 });
