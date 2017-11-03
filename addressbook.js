@@ -2,6 +2,8 @@
 document.getElementById("contactList").style.display = "none";
 
 function createContact(id, firstName, lastName, phoneNumber, email) { 
+    //assign unique ID to the contact
+    uniqueID++;
     return{
         id: id,
         firstName: firstName,
@@ -84,8 +86,6 @@ document.getElementById("createNewContact").addEventListener('click', function(e
         alert("Please type email");
     }
      else {
-      //assign unique ID to the contact
-      uniqueID++;
       //create a contact
       var newContact = new createContact(uniqueID, inputFirstName, inputLastName, inputPhoneNumber, inputEmail);
 
