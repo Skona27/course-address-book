@@ -57,7 +57,7 @@ function showList(contactObj) {
   document.getElementById('contactList').innerHTML += '<li class="list-group-item">Email:'+'<h5><span class="badge badge-secondary" id="email">'+contactObj.email+'</span></h5></li>';
    
   //a button to duplicate the contact 
-  document.getElementById('contactList').innerHTML += '<button type="button" id="'+contactObj.getFullName()+'" class="btn btn-default duplicateContact">Duplicate</button';  
+  document.getElementById('contactList').innerHTML += '<button type="button" id="'+contactObj.id+'" class="btn btn-default duplicateContact">Duplicate</button';  
 }
 
 //click a button to create a new contact and show it in the list
@@ -116,7 +116,32 @@ document.getElementById('showContactList').addEventListener('click', function(){
 //check if the duplicate button was clicked
 document.querySelector("#contactList").addEventListener('click', function(e){
   if(e.target.className === 'btn btn-default duplicateContact'){
-    //get the full name of the contact which we want to duplicate
-    console.log(e.target.id);
+    //get the id of the contact which we want to duplicate
+    var id = Number(e.target.id);
+    // get contact by id
+    contact = getContactByID(id);
+    //asign properties
+    var firstName = contact.firstName;
+    var lastName = contact.lastName + ".copy";
+    var phoneNumber = contact.phoneNumber;
+    var email = contact.email;
+
+    //create a duplicated contact
+    var newContact = new createContact(uniqueID, firstName, lastName, phoneNumber, email);
+    // push contact to contact list
+    contactList.push(newContact);
+
   }
 });
+
+// gets contact by its ID, returns false if doesn't exist
+function getContactByID(id) {
+  var result = [];
+  // loop through the contactList array
+  contactList.forEach(function(contact){
+    // check if the contact's ID is equal to id
+    if (contact.id === id) result.push(contact);
+  });
+
+  return result ? result[0] : false;
+}
