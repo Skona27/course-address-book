@@ -102,10 +102,13 @@ document.getElementById('showContactList').addEventListener('click', function(){
     
     //close the form of Sample Contact
     document.getElementById("contactList").style.display = "block";
+
+    // cleaning the contact list(if button clicked twice, contact list still displays properly)
+    document.getElementById('contactList').innerHTML = '';
+    
     // Looping through the object of contacts
     contactList.forEach(function(index){
-    showList(index);
-        
+      showList(index);   
     });
     
 });
