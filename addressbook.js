@@ -56,7 +56,7 @@ function showList(contactObj) {
 
   document.getElementById('contactList').innerHTML += '<li class="list-group-item">Email:'+'<h5><span class="badge badge-secondary" id="email1">'+contactObj.email+'</span></h5></li>';
     
-   document.getElementById('contactList').innerHTML += '<button onclick="deleteButton()" style="margin-top:15px" type="button" class="btn btn-danger btn-sm" id="deleteButton">Delete</button></li>'    
+   document.getElementById('contactList').innerHTML += '<button onclick="deleteButton(firstName)" style="margin-top:15px" type="button" class="btn btn-danger btn-sm" id="deleteButton">Delete</button></li>'    
     
 }
 
@@ -103,7 +103,7 @@ document.getElementById("createNewContact").addEventListener('click', function(e
 
 //click to show the list of saved contacts
 document.getElementById('showContactList').addEventListener('click', function(){
-    
+ console.log(firstName);
     // close the sample contact if shown
     document.getElementById("contactSubmit").style.display = "none";
     
@@ -117,33 +117,39 @@ document.getElementById('showContactList').addEventListener('click', function(){
     contactList.forEach(function(index){
       showList(index);   
     });
-    
+   
 });
 
 
-function deleteButton() {
+function deleteButton(firstName) {
     //check console for error
     console.log("good")
     
     // iterate through contactList and match the name (contact) to delete
     for (var i = 0; i < contactList.length; i++) {
-        console.log(contactList[i].firstName, $('#firstName1').text());
-        // if name in a contact is the same, delete
-        if (contactList[i].firstName === $('#firstName1').text())
+        console.log(contactList[i].firstName, firstName);
+        // if name in a contact is the same, delete it
+        if (contactList[i].firstName === firstName.value)
             contactList.splice(i, 1);
-            console.log("success", contactList);
+            console.log("success", firstName);
 
     }
     //refresh contact list
     document.getElementById('contactList').innerHTML = '';
     contactList.forEach(function(index){
-        showList(index);
+    showList(index);
     })
-    
- 
 };
 
-//
+//other option still need to be fixed
 //$('#contactList').on("click", '#deleteButton', function(){
-//    var i = $('#firstName1').text();
+//     var i = $(this).closest('#firstName1').text();
+//     
+//     for (var i = 0; i < contactList.length; i++) {
+//        console.log(contactList[i].firstName, $('#firstName1').text());
+//        // if name in a contact is the same, delete it
+//        if (contactList[i].firstName === i)
+//            contactList.splice(i, 1);
+//            console.log("success", $('#firstName1').text(), $(this).find('#firstName').text());
+//     }
 //});
