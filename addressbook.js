@@ -17,7 +17,7 @@ function createContact(id, firstName, lastName, phoneNumber, email) {
 }
 
 //unique ID of the sample contact
-var uniqueID = 0;
+var uniqueID = 1;
 
 var sampleContact = {
   id: uniqueID,
@@ -46,7 +46,7 @@ function showContact(contactObj) {
 
 //show the list of contacts
 function showList(contactObj) {
-  document.getElementById('contactList').innerHTML += '<hr><h4 id="contactTitle">'+contactObj.id+" " +contactObj.getFullName()+'</h4>';  
+  document.getElementById('contactList').innerHTML += '<hr><h4 id="contactTitle">'+contactObj.id+". " +contactObj.getFullName()+'</h4>';  
     
   document.getElementById('contactList').innerHTML += '<li class="list-group-item">First Name:'+'<h5><span class="badge badge-secondary" id="firstName">'+contactObj.firstName+'</span></h5></li>';
     
@@ -55,6 +55,8 @@ function showList(contactObj) {
   document.getElementById('contactList').innerHTML += '<li class="list-group-item">Phone Number:'+'<h5><span class="badge badge-secondary" id="phoneNumber">'+contactObj.phoneNumber+'</span></h5></li>';
 
   document.getElementById('contactList').innerHTML += '<li class="list-group-item">Email:'+'<h5><span class="badge badge-secondary" id="email">'+contactObj.email+'</span></h5></li>';
+    
+   document.getElementById('contactList').innerHTML += '<button onclick="deleteButton()" style="margin-top:15px" type="button" class="btn btn-danger btn-sm" id="deleteButton">Delete</button>'    
     
 }
 
@@ -88,7 +90,9 @@ document.getElementById("createNewContact").addEventListener('click', function(e
 
         contactList.push(newContact);
         //show the contact
+        
         document.getElementById("contactSubmit").style.display = "block";
+         document.getElementById("contactList").style.display = "none";
         showContact(newContact);
     }
     
@@ -115,3 +119,17 @@ document.getElementById('showContactList').addEventListener('click', function(){
     });
     
 });
+
+//function deleteButton() {
+//    if (contactList.pop())
+//    contactList.forEach(function(index){
+//        document.getElementById('contactList').innerHTML = ''
+//        showList(index);
+//        console.log(index);
+//    });
+//    console.log(uniqueID);
+//}
+//
+//$('#deleteButton').on("click", function(e){
+//    console.log("it works!");
+//});
