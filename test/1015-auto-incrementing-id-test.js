@@ -1,3 +1,4 @@
+// this test assumes that createFunction.js "module" is included
 QUnit.test( "Test that contacts are created and added to the list.", function( assert ) {
     assert.ok(contactList.length === 1, "Initially there is only one sample contact on the list." );
 
