@@ -1,6 +1,6 @@
 // turn off the list of a new contact
 document.getElementById("contactList").style.display = "none";
-
+document.getElementById("contactSubmit").style.display = "none";
 function createContact(id, firstName, lastName, phoneNumber, email) { 
     //assign unique ID to the contact
     uniqueID++;
@@ -46,7 +46,7 @@ function showContact(contactObj) {
 
 //show the list of contacts
 function showList(contactObj) {
-  document.getElementById('contactList').innerHTML += '<hr><h4 id="contactTitle">'+contactObj.getFullName()+'</h4>';  
+  document.getElementById('contactList').innerHTML += '<hr><h4 id="contactTitle">'+contactObj.id+" " +contactObj.getFullName()+'</h4>';  
     
   document.getElementById('contactList').innerHTML += '<li class="list-group-item">First Name:'+'<h5><span class="badge badge-secondary" id="firstName">'+contactObj.firstName+'</span></h5></li>';
     
@@ -66,8 +66,6 @@ document.getElementById("createNewContact").addEventListener('click', function(e
     var inputEmail = document.getElementById("inputEmail").value;
     var phoneNumberString = Number(inputPhoneNumber);
     
-    console.log(phoneNumberString);
-    
 //save the contact but first fill all blank spaces
     if (inputFirstName === "") {
         alert("Please type first name");
@@ -84,28 +82,36 @@ document.getElementById("createNewContact").addEventListener('click', function(e
         alert("Please type email");
     }
      else {
+         
       //create a contact
       var newContact = new createContact(uniqueID, inputFirstName, inputLastName, inputPhoneNumber, inputEmail);
 
         contactList.push(newContact);
         //show the contact
-        document.getElementById("contactList").style.display = "block";
+        document.getElementById("contactSubmit").style.display = "block";
         showContact(newContact);
     }
+    
+    
     
     e.preventDefault();
 });
 
-
 //click to show the list of saved contacts
 document.getElementById('showContactList').addEventListener('click', function(){
     
-    //close the form of Sample Contact
+    // close the sample contact if shown
+    document.getElementById("contactSubmit").style.display = "none";
+    
+    //  show the contact list
     document.getElementById("contactList").style.display = "block";
+
+    // cleaning the contact list(if button clicked twice, contact list still displays properly)
+    document.getElementById('contactList').innerHTML = '';
+    
     // Looping through the object of contacts
     contactList.forEach(function(index){
-    showList(index);
-        
+      showList(index);   
     });
     
 });
