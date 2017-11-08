@@ -46,17 +46,17 @@ function showContact(contactObj) {
 
 //show the list of contacts
 function showList(contactObj) {
-  document.getElementById('contactList').innerHTML += '<li class="list-group-item"; id="contactInList"><h4 id="contactTitle1">'+contactObj.id+". " +contactObj.getFullName()+'</h4>';  
+  document.getElementById('contactList').innerHTML += '<hr><li class="list-group-item"; id="contactInList"><h4 id="contactTitle1">'+contactObj.id+". " +contactObj.getFullName()+'</h4>';  
     
   document.getElementById('contactList').innerHTML += '<li class="list-group-item">First Name:'+'<h5><span class="badge badge-secondary" id="firstName1">'+contactObj.firstName+'</span></h5></li>';
     
   document.getElementById('contactList').innerHTML += '<li class="list-group-item">Last Name:'+'<h5><span class="badge badge-secondary" id="lastName1">'+contactObj.lastName+'</span></h5></li>';
     
-  document.getElementById('contactList').innerHTML += '<li class="list-group-item">Phone Number:'+'<h5><span class="badge badge-secondary" id="phoneNumber1">'+contactObj.phoneNumber+'</span></h5></li>';
+  document.getElementById('contactList').innerHTML += '<li class="list-group-item">Phone Number:'+'<h5><span class="badge badge-secondary" id="phoneNumber1">'+contactObj.phoneNumber+'</span><button onclick="addPhone()" id="addPhone" type="button" class="btn btn-default btn-circle" style="border-radius:30px; float:right; margin-top:-10px;"><i class="glyphicon glyphicon-plus"></i></button></h5></li>';
 
-  document.getElementById('contactList').innerHTML += '<li class="list-group-item">Email:'+'<h5><span class="badge badge-secondary" id="email1">'+contactObj.email+'</span></h5></li>';
+  document.getElementById('contactList').innerHTML += '<li class="list-group-item">Email:'+'<h5><span class="badge badge-secondary" id="email1">'+contactObj.email+'</span><button onclick="addPhone()" id="addPhone" type="button" class="btn btn-default btn-circle" style="border-radius:30px; float:right; margin-top:-10px;"><i class="glyphicon glyphicon-plus"></i></button></h5></li>';
     
-   document.getElementById('contactList').innerHTML += '<button onclick="deleteButton(firstName)" style="margin-top:15px" type="button" class="btn btn-danger btn-sm" id="deleteButton">Delete</button></li>'    
+   document.getElementById('contactList').innerHTML += '<button onclick="deleteButton("'+contactObj.firstName+'")" style="margin-top:15px" type="button" class="btn btn-danger btn-sm" id="deleteButton">Delete</button></li>'    
     
 }
 
@@ -123,15 +123,15 @@ document.getElementById('showContactList').addEventListener('click', function(){
 
 function deleteButton(firstName) {
     //check console for error
-    console.log("good")
+    console.log(firstName)
     
     // iterate through contactList and match the name (contact) to delete
     for (var i = 0; i < contactList.length; i++) {
         console.log(contactList[i].firstName, firstName);
         // if name in a contact is the same, delete it
-        if (contactList[i].firstName === firstName.value)
+        if (contactList[i].firstName === $("#firstName").text());
             contactList.splice(i, 1);
-            console.log("success", firstName);
+            console.log(contactList[i].firstName, $("#firstName").text());
 
     }
     //refresh contact list
@@ -140,6 +140,12 @@ function deleteButton(firstName) {
     showList(index);
     })
 };
+
+function addPhone() {
+    alert("works");
+}
+
+
 
 //other option still need to be fixed
 //$('#contactList').on("click", '#deleteButton', function(){
