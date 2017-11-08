@@ -56,8 +56,7 @@ function showList(contactObj) {
 
   document.getElementById('contactList').innerHTML += '<li class="list-group-item">Email:'+'<h5><span class="badge badge-secondary" id="email1">'+contactObj.email+'</span><button onclick="addPhone()" id="addPhone" type="button" class="btn btn-default btn-circle" style="border-radius:30px; float:right; margin-top:-10px;"><i class="glyphicon glyphicon-plus"></i></button></h5></li>';
     
-   document.getElementById('contactList').innerHTML += '<button onclick="deleteButton("'+contactObj.firstName+'")" style="margin-top:15px" type="button" class="btn btn-danger btn-sm" id="deleteButton">Delete</button></li>'    
-    
+   document.getElementById('contactList').innerHTML += '<button onclick="deleteButton(\''+contactObj.id+'\')" style="margin-top:15px" type="button" class="btn btn-danger btn-sm" id="deleteButton">Delete</button></li>'    
 }
 
 //click a button to create a new contact and show it in the list
@@ -121,17 +120,16 @@ document.getElementById('showContactList').addEventListener('click', function(){
 });
 
 
-function deleteButton(firstName) {
+function deleteButton(idNumber) {
     //check console for error
-    console.log(firstName)
+    console.log(Number(idNumber))
     
     // iterate through contactList and match the name (contact) to delete
     for (var i = 0; i < contactList.length; i++) {
-        console.log(contactList[i].firstName, firstName);
+        console.log(contactList[0].id);
         // if name in a contact is the same, delete it
-        if (contactList[i].firstName === $("#firstName").text());
+        if (contactList[i].id === Number(idNumber + 1));
             contactList.splice(i, 1);
-            console.log(contactList[i].firstName, $("#firstName").text());
 
     }
     //refresh contact list
