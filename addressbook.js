@@ -133,28 +133,24 @@ document.getElementById('showContactList').addEventListener('click', function(){
 
 
 function deleteButton(idNumber) {
+
+    idNumber = Number(idNumber);
     //check console for error
-    console.log(Number(idNumber));
-    console.log(jQuery.type());
+    console.log(idNumber);
 
 
     // iterate through contactList and match the name (contact) to delete
-    for (var i = 0; i < contactList.length; i++) {
-        console.log(contactList[i].id === idNumber);
-        
+    for (var i = 0; i < contactList.length; i++) {        
         // if name in a contact is the same, delete it
-         if (contactList[i].id === idNumber) {
-        
+         if (contactList[i].id === idNumber) {  
             contactList.splice(i,1);
-            console.log(contactList[i].id);
          } 
             
     }
     //refresh contact list
-    contactList.forEach(function(index){
     document.getElementById("contactList").innerHTML = '';
-    showList(index);
-        
+    contactList.forEach(function(index){
+    showList(index);    
     })
    
     
