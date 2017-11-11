@@ -136,12 +136,23 @@ document.querySelector("#contactList").addEventListener('click', function(e){
 
 // gets contact by its ID, returns false if doesn't exist
 function getContactByID(id) {
-  var result = [];
-  // loop through the contactList array
+
+  //OLD SOLUTION, TO BE REMOVED
+
+/*  var result = [];
   contactList.forEach(function(contact){
-    // check if the contact's ID is equal to id
     if (contact.id === id) result.push(contact);
   });
 
-  return result ? result[0] : false;
+  return result ? result[0] : false;*/
+
+
+
+  // loop through the contactList array
+  for(var i=0; i<contactList.length; i++){
+    // check if the contact's ID is equal to id
+    if(contactList[i].id === id) return contactList[i];
+  }
+
+  return false;
 }
