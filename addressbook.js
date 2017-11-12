@@ -71,7 +71,7 @@ document.getElementById("createNewContact").addEventListener('click', function(e
     var phoneNumberString = Number(inputPhoneNumber);
     
 //save the contact but first fill all blank spaces
-    if (inputFirstName === "") {
+    if (inputFirstName.value === "") {
         alert("Please type first name");
     } else if (inputLastName === "") {
         alert("Please type last name")
@@ -79,7 +79,7 @@ document.getElementById("createNewContact").addEventListener('click', function(e
         alert("Please type phone number")
     }
         // alert if user provided not a number
-      else if (Number.isInteger(phoneNumberString) !== true) {
+      else if (Number.isInteger(phoneNumberString) === false) {
           alert("Not number");
 
     } else if (inputEmail === "") {
@@ -94,16 +94,21 @@ document.getElementById("createNewContact").addEventListener('click', function(e
         //show the contact
         
         document.getElementById("contactSubmit").style.display = "block";
-         document.getElementById("contactList").style.display = "none";
+        document.getElementById("contactList").style.display = "none";
         showContact(newContact);
         
+         //clear the contact form
+         document.getElementById("inputFirstName").value = "";
+         document.getElementById("inputLastName").value = "";
+         document.getElementById("inputPhoneNumber").value = "";
+         document.getElementById("inputEmail").value = "";
          }
-
+    
     //delete sample contact when adding a new contact
         if (contactList[0].id === 0) 
         contactList.shift();
            
-
+        
   
     
     e.preventDefault();
@@ -177,30 +182,26 @@ function getContactByID(id) {
 
 function deleteButton(idNumber) {   
     //check console for error
-    console.log(Number(idNumber));
-    console.log(jQuery.type());
+    console.log(idNumber);
 
 
     // iterate through contactList and match the name (contact) to delete
-    for (var i = 0; i < contactList.length; i++) {
-        console.log(contactList[i].id === Number(idNumber));
-        
+    for (var i = 0; i < contactList.length; i++) {        
         // if name in a contact is the same, delete it
-         if (contactList[i].id === Number(idNumber)) {
-        
+         if (contactList[i].id === idNumber) {  
             contactList.splice(i,1);
-        
-            document.getElementById("firstName1").innerHTML = '';
-        
-            console.log(contactList[i].id);
-         } 
+         }
             
     }
     //refresh contact list
-    document.getElementById('contactList').innerHTML = '';
+    document.getElementById("contactList").innerHTML = '';
     contactList.forEach(function(index){
-    showList(index);
+    showList(index);    
     })
+   
+    
+    
+    
     //    $('#contactList').children().each(function(){
 //    $(this).filter('#firstName').remove();
 //   });
