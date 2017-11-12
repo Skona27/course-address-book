@@ -66,7 +66,7 @@ document.getElementById("createNewContact").addEventListener('click', function(e
     var inputEmail = document.getElementById("inputEmail").value;
     var phoneNumberString = Number(inputPhoneNumber);
     
-    console.log(phoneNumberString);
+
     
 //save the contact but first fill all blank spaces
     if (inputFirstName === "") {
@@ -77,7 +77,7 @@ document.getElementById("createNewContact").addEventListener('click', function(e
         alert("Please type phone number")
     }
         // alert if user provided not a number
-      else if (phoneNumberString !== Number(inputPhoneNumber)) {
+      else if (Number.isInteger(phoneNumberString) !== true) {
           alert("Not number");
 
     } else if (inputEmail === "") {
