@@ -104,7 +104,7 @@ document.getElementById("createNewContact").addEventListener('click', function(e
     
     //delete sample contact when adding a new contact
         if (contactList[0].id === 0) 
-        phone.shift();
+            contactList.shift();
            
         
   
@@ -129,7 +129,9 @@ document.getElementById('showContactList').addEventListener('click', function(){
     contactList.forEach(function(index){
       showList(index);   
     });
-   
+    
+    //delete hr from the first contact
+    document.querySelector('hr:first-child').style.display = "none";
 });
 
 
