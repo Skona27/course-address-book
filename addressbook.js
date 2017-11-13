@@ -53,9 +53,9 @@ function showList(contactObj) {
     
   document.getElementById('contactList').innerHTML += '<li class="list-group-item">Last Name:'+'<h5><span class="badge badge-secondary" id="lastName1">'+contactObj.lastName+'</span></h5></li>';
     
-  document.getElementById('contactList').innerHTML += '<li class="list-group-item">Phone Number:'+'<h5><span class="badge badge-secondary" id="phoneNumber1">'+contactObj.phoneNumber+'</span>'+contactObj.addNumberPhone+'<button onclick="addPhone()" id="addPhone" type="button" class="btn btn-default btn-circle" style="border-radius:30px; float:right; margin-top:-10px;"><i class="glyphicon glyphicon-plus"></i></button></h5></li>';
+  document.getElementById('contactList').innerHTML += '<li class="list-group-item">Phone Number:'+'<h5><span class="badge badge-secondary" id="phoneNumber1">'+contactObj.phoneNumber+'</span><button onclick="addPhone()" id="addPhone" type="button" class="btn btn-default btn-circle" style="border-radius:30px; float:right; margin-top:-10px;"><i class="glyphicon glyphicon-plus"></i></button>'+contactObj.addNumberPhone+'</h5></li>';
     
-  document.getElementById('contactList').innerHTML += '<li class="list-group-item">Email:'+'<h5><span class="badge badge-secondary" id="email1">'+contactObj.email+'</span><button onclick="addPhone()" id="addPhone" type="button" class="btn btn-default btn-circle" style="border-radius:30px; float:right; margin-top:-10px;"><i class="glyphicon glyphicon-plus"></i></button></h5></li>';
+  document.getElementById('contactList').innerHTML += '<li class="list-group-item">Email:'+'<h5><span class="badge badge-secondary" id="email1">'+contactObj.email+'</span><button onclick="addPhone()" id="addPhone" type="button" class="btn btn-default btn-circle" style="border-radius:30px; float:right; margin-top:-10px; position: relative;"><i class="glyphicon glyphicon-plus"></i></button></h5></li>';
     
    document.getElementById('contactList').innerHTML += '<button onclick="deleteButton('+contactObj.id+')" style="margin-top:15px" type="button" class="btn btn-danger btn-sm" id="deleteButton">Delete</button></li>'    
 }
@@ -187,26 +187,27 @@ function addPhone() {
     console.log(typeof addNumberPhone);
     
     var addNewNumber = addNumberPhone.toString();
-    if (Number.isInteger(addNumberPhone) === false)
+    if (Number.isInteger(addNumberPhone) === false) {
         alert("It's not a number!");
-    
-    contactList[0].addNumberPhone.replace(/\,/g,"");
+    } 
+    else {
     var newContact2 = new createContact(addNewNumber);
-    contactList[0].addNumberPhone.push('<h5><span class="badge badge-secondary" id="phoneNumber1">'+addNewNumber+'</span></button></h5>');
-    contactList[0].addNumberPhone.replace(/\,/g,"");
+    contactList[0].addNumberPhone.push('<h5><span class="badge badge-secondary" style="position:relative" id="phoneNumber1">'+addNewNumber+'</span></h5>');  
+        console.log(typeof addNewNumber);
+//        contactList[0].addNumberPhone.replace(/\,/g,"")
+    }
     
     
-    console.log(contactList);
+    
+/*    var x = contactList.replace(/\,/g,"");
+    console.log(x);*/
+    
     
          document.getElementById("contactList").innerHTML = '';
     contactList.forEach(function(index){
         showList(index);
        
     });
-    
-    console.log(contactList);
-    console.log(typeof addNumberPhone.toString());
-    console.log(Number.isInteger(addNumberPhone));
 }
     
 /*    document.getElementById("contactList").innerHTML = '';
