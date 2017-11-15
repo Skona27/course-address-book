@@ -49,7 +49,7 @@ function showContact(contactObj) {
 function showList(contactObj) {
   document.getElementById('contactList').innerHTML += '<hr><li class="list-group-item"; id="contactInList"><h4 id="contactTitle1">'+contactObj.id+". " +contactObj.getFullName()+'</h4>';  
     
-  document.getElementById('contactList').innerHTML += '<li class="list-group-item">First Name:'+'<h5><span class="badge badge-secondary" id="firstName1" >'+contactObj.firstName+'</span><button style="float: right; margin: -5px; background-color: white;" type="button" class="btn btn-defualt" id="editButton" onclick="editFirstName()"><i style="float: right;" class="glyphicon glyphicon-edit"></i></button></h5></li>';
+  document.getElementById('contactList').innerHTML += '<li class="list-group-item">First Name:'+'<h5><span class="badge badge-secondary" id="firstName1" >'+contactObj.firstName+'</span><button style="float: right; margin: -5px; background-color: white;" type="button" class="btn btn-defualt" id="editButton" onclick="editFirstName('+contactObj.firstName+')"><i style="float: right;" class="glyphicon glyphicon-edit"></i></button></h5></li>';
     
   document.getElementById('contactList').innerHTML += '<li class="list-group-item">Last Name:'+'<h5><span class="badge badge-secondary" id="lastName1">'+contactObj.lastName+'</span></h5></li>';
     
@@ -204,7 +204,7 @@ function deleteButton(idNumber) {
         // if name in a contact is the same, delete it
          if (contactList[i].id === idNumber) {
         console.log(contactList[i].id);
-             console.log(contactList)
+             console.log(typeof idNumber)
             contactList.splice(i,1);
             console.log(contactList[i].id);
              console.log(contactList);
@@ -246,12 +246,31 @@ function addPhone() {
 }
 
 //edit first name
-function editFirstName() {
+function editFirstName(editFirstName) {
     
+    var editFirst = prompt("Type new first name: ");
     
+    for (var i = 0; i < contactList.length; i++) {
+ 
+        console.log(typeof editFirstName);
+        console.log(contactList[0].firstName);
+        var editFirstName = editFirstName.toString();
+        console.log(contactList[0].firstName === editFirstName);
+        
+    if (editFirst !== null) {
+        if (contactList[i].firstName === editFirstName) {
+        
+        console.log(contactList[i].firstName);
+        contactList[i].firstName = editFirst;
+        console.log(typeof editFirstName);
+        console.log(contactList[i].firstName);
+        }
+    }
     
+    showContactList();   
+    
+ }
 }
-
 
 
 
