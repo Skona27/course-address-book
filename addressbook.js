@@ -1,7 +1,7 @@
 // turn off the list of a new contact
 document.getElementById("contactList").style.display = "none";
 document.getElementById("contactSubmit").style.display = "none";
-function createContact(id, firstName, lastName, phoneNumber, email, addNumberPhone) { 
+function createContact(id, firstName, lastName, phoneNumber, email, addNumberPhone, addNewEmail) { 
     //assign unique ID to the contact
     uniqueID++;
     return{
@@ -11,6 +11,7 @@ function createContact(id, firstName, lastName, phoneNumber, email, addNumberPho
         phoneNumber: [phoneNumber],
         addNumberPhone: [addNumberPhone],
         email: email,
+        addNewEmail: [addNewEmail],
         getFullName: function(){
             return firstName + " " + this.lastName;
         }
@@ -49,14 +50,14 @@ function showContact(contactObj) {
 function showList(contactObj) {
   document.getElementById('contactList').innerHTML += '<hr><li class="list-group-item"; id="contactInList"><h4 id="contactTitle1">'+contactObj.id+". " +contactObj.getFullName()+'</h4>';  
     
-  document.getElementById('contactList').innerHTML += '<li class="list-group-item">First Name:'+'<h5><span class="badge badge-secondary" id="firstName1" >'+contactObj.firstName+'</span><button style="float: right; margin: -5px; background-color: white;" type="button" class="btn btn-defualt" id="editButton" onclick="editFirstName('+contactObj.firstName+')"><i style="float: right;" class="glyphicon glyphicon-edit"></i></button></h5></li>';
+  document.getElementById('contactList').innerHTML += '<li class="list-group-item">First Name:'+'<h5><span class="badge badge-secondary" id="firstName1" >'+contactObj.firstName+'</span><button style="float: right; margin: -5px; background-color: white;" type="button" class="btn btn-defualt" id="editButton" onclick="editFirstName('+contactObj.firstName+');"><i style="float: right;" class="glyphicon glyphicon-edit"></i></button></h5></li>';
     
   document.getElementById('contactList').innerHTML += '<li class="list-group-item">Last Name:'+'<h5><span class="badge badge-secondary" id="lastName1">'+contactObj.lastName+'</span></h5></li>';
     
 
   document.getElementById('contactList').innerHTML += '<li class="list-group-item">Phone Number:'+'<h5><button onclick="addPhone()" id="addPhone" type="button" class="btn btn-default btn-circle" style="border-radius:30px; float:right; margin-top:-10px;"><i class="glyphicon glyphicon-plus"></i></button><span class="badge badge-secondary" id="phoneNumber1">'+contactObj.phoneNumber+'</span>'+contactObj.addNumberPhone+'</h5></li>';
 
-  document.getElementById('contactList').innerHTML += '<li class="list-group-item">Email:'+'<h5><span class="badge badge-secondary" id="email">'+contactObj.email+'</span></h5></li>';
+  document.getElementById('contactList').innerHTML += '<li class="list-group-item">Email:'+'<h5><button onclick="addEmail()" id="addEmail" type="button" class="btn btn-default btn-circle" style="border-radius:30px; float:right; margin-top:-10px;"><i class="glyphicon glyphicon-plus"></i></button><span class="badge badge-secondary" id="email">'+contactObj.email+'</span>'+contactObj.addNewEmail+'</h5></li>';
    
   //a button to duplicate the contact 
   document.getElementById('contactList').innerHTML += '<button type="button" id="'+contactObj.id+'" style="margin-top:15px" class="btn btn-default btn-sm duplicateContact">Duplicate</button';  
@@ -183,40 +184,20 @@ function getContactByID(id) {
 
 function deleteButton(idNumber) {
 
-    
-/*    
-function deleteButton(idNumber) {   
-    //check console for error
-    console.log(idNumber);
-
-    delete sampleContact.firstName;
-    console.log(sampleContact.firstName);
-    document.getElementById("deleteButton1").setAttribute("onClick", "");
-    console.log(sampleContact);
-}
-    */
-
-    // iterate through contactList and match the name (contact) to delete
-
     for (var i = 0; i < contactList.length; i++) {
         console.log(contactList[i].id === idNumber);
-//        idNumber = Number(idNumber);
+
         // if name in a contact is the same, delete it
          if (contactList[i].id === idNumber) {
         console.log(contactList[i].id);
              console.log(typeof idNumber)
             contactList.splice(i,1);
-            console.log(contactList[i].id);
              console.log(contactList);
          } 
             
     }
     //refresh contact list
-    document.getElementById("contactList").innerHTML = '';
-    contactList.forEach(function(index){
-        showList(index);
-       
-    });
+   showContactList()
 }
 
 // add new number phone to exisiting one
@@ -225,8 +206,6 @@ function addPhone() {
     
     //check if string or number
     addNumberPhone = Number(addNumberPhone);
-    console.log(typeof addNumberPhone);
-    
     var addNewNumber = addNumberPhone.toString();
     if (Number.isInteger(addNumberPhone) === false) {
         alert("It's not a number!");
@@ -234,16 +213,29 @@ function addPhone() {
     else {
     var newContact2 = new createContact(addNewNumber);
     contactList[0].addNumberPhone.push('<h5><span class="badge badge-secondary" style="position:relative" id="phoneNumber1">'+addNewNumber+'</span></h5>');  
-        console.log(typeof newContact2);
+        
 //        contactList[0].addNumberPhone.replace(/\,/g,"")
          console.log(contactList);
     }
-    
-    /*    var x = contactList.replace(/\,/g,"");
-    console.log(x);*/
-    
  showContactList()
 }
+
+// add new email to exisiting contact
+function addEmail() {
+    
+    var getValue = prompt("Add new email: ");
+    var newContact3 = new createContact(getValue)
+    console.log(typeof getValue);
+    //document.getElementById("email").innerHTML += getValue;
+    contactList[0].addNewEmail.push('<h5><span class="badge badge-secondary" style="position:relative" id="phoneNumber1">'+getValue+'</span></h5>')
+    console.log(contactList[0].addNewEmail);
+    
+    showContactList()
+    
+}
+
+
+
 
 //edit first name
 function editFirstName(editFirstName) {
@@ -266,9 +258,7 @@ function editFirstName(editFirstName) {
         console.log(contactList[i].firstName);
         }
     }
-    
     showContactList();   
-    
  }
 }
 
