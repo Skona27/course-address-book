@@ -234,9 +234,6 @@ function addEmail() {
     
 }
 
-
-
-
 //edit first name
 function editFirstName(editFirstName) {
     
@@ -260,30 +257,7 @@ function editFirstName(editFirstName) {
     }
     showContactList();   
  }
-}
-
-
-
-
-
-/*    document.getElementById("contactList").innerHTML = '';
-    contactList.forEach(function(index){
-        showList(index);
-    });*/
-
-/*    for(var i = 0; i < arrayOfObjects.length; i++) {
-    var obj = arrayOfObjects[i];
-
-    if(listToDelete.indexOf(obj.id) !== -1) {
-        arrayOfObjects.splice(i, 1);
-    }*/
-    
-    
-/*    var a = contactList.unshift(addNumberPhone);
-    console.log(typeof addNumberPhone);
-    if (addNumberPhone.isInteger === true)
-            contactList[0].phoneNumber = addNumberPhone;*/
-    
+}   
 
 function showContactList() {
   // clear contact list content
@@ -299,7 +273,6 @@ function showContactList() {
     document.querySelector("li").style.marginTop = "6px";
   } 
 }
-
 
 
 //other option still need to be fixed
