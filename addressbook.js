@@ -50,7 +50,7 @@ function showContact(contactObj) {
 function showList(contactObj) {
   document.getElementById('contactList').innerHTML += '<hr><li class="list-group-item"; id="contactInList"><h4 id="contactTitle1">'+contactObj.id+". " +contactObj.getFullName()+'</h4>';  
     
-  document.getElementById('contactList').innerHTML += '<li class="list-group-item">First Name:'+'<h5><span class="badge badge-secondary" id="firstName1" >'+contactObj.firstName+'</span><button style="float: right; margin: -5px; background-color: white;" type="button" class="btn btn-defualt" id="editButton" onclick="editFirstName('+contactObj.firstName+');"><i style="float: right;" class="glyphicon glyphicon-edit"></i></button></h5></li>';
+  document.getElementById('contactList').innerHTML += '<li class="list-group-item">First Name:'+'<h5><span class="badge badge-secondary" id="firstName1" >'+contactObj.firstName+'</span><button style="float: right; margin: -5px; background-color: white;" type="button" class="btn btn-defualt" id="editButton" onclick="editFirstName('+'\''+contactObj.firstName+'\''+');"><i style="float: right;" class="glyphicon glyphicon-edit"></i></button></h5></li>';
     
   document.getElementById('contactList').innerHTML += '<li class="list-group-item">Last Name:'+'<h5><span class="badge badge-secondary" id="lastName1">'+contactObj.lastName+'</span></h5></li>';
     
