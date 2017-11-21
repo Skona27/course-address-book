@@ -110,7 +110,7 @@ document.getElementById("createNewContact").addEventListener('click', function(e
       document.getElementById("inputLastName").value = "";
       document.getElementById("inputPhoneNumber").value = "";
       document.getElementById("inputEmail").value = "";
-    }
+
         
     document.getElementById("contactSubmit").style.display = "block";
     document.getElementById("contactList").style.display = "none";
@@ -118,6 +118,7 @@ document.getElementById("createNewContact").addEventListener('click', function(e
     //delete sample contact when adding a new contact
     if (contactList[0].id === 0) {
     contactList.shift();
+        }
     }
 
   e.preventDefault();
