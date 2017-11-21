@@ -13,7 +13,7 @@ function createContact(id, firstName, lastName, phoneNumber, email, addNumberPho
         email: email,
         addNewEmail: [addNewEmail],
         getFullName: function(){
-            return firstName + " " + this.lastName;
+            return firstName + " " + lastName;
         }
     }
 }
@@ -75,24 +75,10 @@ document.getElementById("createNewContact").addEventListener('click', function(e
     var phoneNumberString = Number(inputPhoneNumber);
     
     //save the contact but first fill all blank spaces
-    if (inputFirstName.value === "") {
-        alert("Please type first name");
-    } else if (inputLastName === "") {
-        alert("Please type last name")
-    } else if (inputPhoneNumber === "") {
-        alert("Please type phone number")
-    }
-        // alert if user provided not a number
-      else if (Number.isInteger(phoneNumberString) === false) {
-          alert("Not number");
 
-    } else if (inputEmail === "") {
-        alert("Please type email");
-    } 
-     else {
 
       //create a contact
-      var newContact = new createContact(uniqueID, inputFirstName, inputLastName, inputPhoneNumber, inputEmail);
+      var newContact = new createContact(uniqueID, sampleContact.firstName, sampleContact.lastName, sampleContact.phoneNumber, sampleContact.email);
 
 
       contactList.push(newContact);
@@ -107,14 +93,10 @@ document.getElementById("createNewContact").addEventListener('click', function(e
       document.getElementById("inputLastName").value = "";
       document.getElementById("inputPhoneNumber").value = "";
       document.getElementById("inputEmail").value = "";
-    }
 
-        contactList.push(newContact);
-        //show the contact
-        
+    
         document.getElementById("contactSubmit").style.display = "block";
         document.getElementById("contactList").style.display = "none";
-        showContact(newContact);
         
          //clear the contact form
  /*        document.getElementById("inputFirstName").value = "";
@@ -234,29 +216,26 @@ function addEmail() {
     
 }
 
-//edit first name
+function edit() {
+    alert("it works");
+}
+
+//edit first name  
 function editFirstName(editFirstName) {
     
     var editFirst = prompt("Type new first name: ");
     
     for (var i = 0; i < contactList.length; i++) {
- 
-        console.log(typeof editFirstName);
-        console.log(contactList[0].firstName);
-        var editFirstName = editFirstName.toString();
-        console.log(contactList[0].firstName === editFirstName);
+        var editFirstName = editFirstName.toString();  
         
-    if (editFirst !== null) {
-        if (contactList[i].firstName === editFirstName) {
-        
-        console.log(contactList[i].firstName);
-        contactList[i].firstName = editFirst;
-        console.log(typeof editFirstName);
-        console.log(contactList[i].firstName);
-        }
+    // prevent from accepting empty field and null (cancel button) 
+        if (editFirst !== null && editFirst !== "") {
+            if (contactList[i].firstName === editFirstName) {
+                contactList[i].firstName = editFirst;
+            }
+        } 
     }
-    showContactList();   
- }
+    showContactList();  
 }   
 
 function showContactList() {
