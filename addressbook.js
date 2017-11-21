@@ -1,6 +1,4 @@
-// prevent global scope - init at the end
-function init() {
-    
+
 // turn off the list of a new contact
 document.getElementById("contactList").style.display = "none";
 document.getElementById("contactSubmit").style.display = "none";
@@ -15,7 +13,7 @@ function createContact(id, firstName, lastName, phoneNumber, email, addNumberPho
         addNumberPhone: [addNumberPhone],
         email: email,
         getFullName: function(){
-            return firstName + " " + lastName;
+            return firstName + " " + this.lastName;
         }
     };
 }
@@ -214,7 +212,3 @@ function showContactList() {
     document.querySelector("li").style.marginTop = "6px";
     } 
   }
-}
-
-// start the app!
-init();
