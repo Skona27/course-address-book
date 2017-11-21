@@ -15,7 +15,7 @@ function createContact(id, firstName, lastName, phoneNumber, email, addNumberPho
         addNumberPhone: [addNumberPhone],
         email: email,
         getFullName: function(){
-            return firstName + " " + this.lastName;
+            return firstName + " " + lastName;
         }
     };
 }
