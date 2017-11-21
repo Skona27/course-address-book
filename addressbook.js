@@ -49,9 +49,9 @@ function showContact(contactObj) {
 //show the list of contacts
 function showList(contactObj) {
     document.getElementById('contactList').innerHTML += '<hr><li class="list-group-item"; id="contactInList"><h4 id="contactTitle1">'+contactObj.id+". " +contactObj.getFullName()+'</h4>';  
-    
+
     document.getElementById('contactList').innerHTML += '<li class="list-group-item">First Name:'+'<h5><span class="badge badge-secondary" id="firstName1" >'+contactObj.firstName+'</span><button type="button" class="btn btn-defualt" id="editButton" onclick="editFirstName('+'\''+contactObj.firstName+'\''+');"><i class="glyphicon glyphicon-edit"></i></button></h5></li>';
-    
+
     document.getElementById('contactList').innerHTML += '<li class="list-group-item">Last Name:'+'<h5><span class="badge badge-secondary" id="lastName1">'+contactObj.lastName+'</span></h5></li>';
     
 
@@ -203,7 +203,7 @@ function addPhone() {
     contactList[0].addNumberPhone.push('<h5><span class="badge badge-secondary" style="position:relative" id="phoneNumber1">'+addNewNumber+'</span></h5>');  
         
         //contactList[0].addNumberPhone.replace(/\,/g,"")
-         console.log(cokntactList);
+
     }
  showContactList()
 }
@@ -214,7 +214,7 @@ function addEmail() {
     var newContact3 = new createContact(getValue)
     console.log(typeof getValue);
     //document.getElementById("email").innerHTML += getValue;
-    contactList[0].addNewEmail.push('<h5><span class="badge badge-secondary" style="position:relative" id="phoneNumber1">'+getValue+'</span></h5>')
+    contactList[0].addNewEmail.push('<h5><span class="badge badge-secondary"  id="phoneNumber1">'+getValue+'</span></h5>')
     console.log(contactList[0].addNewEmail);
     
     showContactList()

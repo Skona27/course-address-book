@@ -25,6 +25,10 @@
     margin-top:-10px;
 }
 
+#phoneNumber1 {
+    position:relative
+}
+
 i {
     float: right;
 }
