@@ -39,7 +39,7 @@ function showList(contactObj) {
 
     document.getElementById('contactList').innerHTML += '<li class="list-group-item">First Name:'+'<h5><span class="badge badge-secondary" id="firstName1" >'+contactObj.firstName+'</span><button type="button" class="btn btn-defualt" id="editButton" onclick="editFirstName('+'\''+contactObj.firstName+'\''+');"><i class="glyphicon glyphicon-edit"></i></button></h5></li>';
 
-    document.getElementById('contactList').innerHTML += '<li class="list-group-item">Last Name:'+'<h5><span class="badge badge-secondary" id="lastName1">'+contactObj.lastName+'</span></h5></li>';
+    document.getElementById('contactList').innerHTML += '<li class="list-group-item">Last Name:'+'<h5><span class="badge badge-secondary" id="lastName1">'+contactObj.lastName+'</span><button type="button" class="btn btn-defualt" id="editButton" onclick="editLastName('+'\''+contactObj.lastName+'\''+');"><i class="glyphicon glyphicon-edit"></i></button></h5></li>';
     
 
     document.getElementById('contactList').innerHTML += '<li class="list-group-item">Phone Number:'+'<h5><button onclick="addPhone()" id="addPhone" type="button" class="btn btn-default btn-circle"><i class="glyphicon glyphicon-plus"></i></button><span class="badge badge-secondary" id="phoneNumber1">'+contactObj.phoneNumber+'</span>'+contactObj.addNumberPhone+'</h5></li>';
@@ -205,6 +205,7 @@ function addPhone() {
     var newContact2 = new createContact(addNewNumber);
     contactList[0].addNumberPhone.push('<h5><span class="badge badge-secondary" style="position:relative" id="phoneNumber1">'+addNewNumber+'</span></h5>');         
     }
+    showContactList()
 }
     
 // add new email to exisiting contact
@@ -236,6 +237,24 @@ function editFirstName(editFirstName) {
     }
     showContactList();  
 }   
+
+//edit last name  
+function editLastName(editLastName) {
+    
+    var editLast = prompt("Type new last name: ")
+    
+    for (var i = 0; i < contactList.length; i++) {
+        
+        var editLastName = editLastName.toString();
+        
+        if(contactList[i].lastName === editLastName) {
+            contactList[i].lastName = editLast;
+        }
+        
+    }
+    showContactList(); 
+}
+
 
 function showContactList() {
     // clear contact list content
