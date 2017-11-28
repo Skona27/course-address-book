@@ -1,0 +1,35 @@
+#editButton {
+    float: right; 
+    margin: -5px; 
+    background-color: white;
+}
+
+#addPhone {
+    border-radius:30px; 
+    float:right; 
+    margin-top:-10px;
+}
+
+.duplicateContact {
+    margin-top:15px;
+}
+
+#deleteButton {
+    float: right; 
+    margin-top:15px;
+}
+
+#addPhone, #addEmail {
+    border-radius:30px; 
+    float:right; 
+    margin-top:-10px;
+}
+
+#phoneNumber1 {
+    position:relative
+}
+
+i {
+    float: right;
+}
+
