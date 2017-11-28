@@ -221,7 +221,7 @@ function addEmail() {
     showContactList()
 }
 
-//edit first name  
+// edit first name  
 function editFirstName(editFirstName) {
     var editFirst = prompt("Type new first name: ");
     
@@ -238,7 +238,7 @@ function editFirstName(editFirstName) {
     showContactList();  
 }   
 
-//edit last name  
+// edit last name  
 function editLastName(editLastName) {
     
     var editLast = prompt("Type new last name: ")
