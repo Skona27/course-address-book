@@ -64,9 +64,6 @@ document.getElementById("createNewContact").addEventListener('click', function(e
     console.log(inputFirstName);
     //save the contact but first fill all blank spaces
 
-      //create a contact
-      var newContact = new createContact(uniqueID, sampleContact.firstName, sampleContact.lastName, sampleContact.phoneNumber, sampleContact.email);
-
     
     if (inputFirstName.value === "") {
         alert("Please type first name");
@@ -194,16 +191,17 @@ function deleteButton(idNumber) {
 
 // add new number phone to exisiting one
 function addPhone() {
-    var addNumberPhone = prompt("Type a number phone: ", "034 232 323");
+    var addNumberPhone = prompt("Type a number phone: ");
     //check if string or number
-    addNumberPhone = Number(addNumberPhone);
-    var addNewNumber = addNumberPhone.toString();
-    if (Number.isInteger(addNumberPhone) === false) {
-        alert("It's not a number!");
-    } 
-    else {
-    var newContact2 = new createContact(addNewNumber);
-    contactList[0].addNumberPhone.push('<h5><span class="badge badge-secondary" style="position:relative" id="phoneNumber1">'+addNewNumber+'</span></h5>');         
+    addNumberPhone1 = Number(addNumberPhone);
+
+    if (addNumberPhone !== null) {
+        if (addNumberPhone !== "") {
+            if (Number.isInteger(addNumberPhone1) !== false) {
+                var newContact2 = new createContact(addNumberPhone);
+                contactList[0].addNumberPhone.push('<h5><span class="badge badge-secondary" id="phoneNumber1">'+addNumberPhone+'</span></h5>');
+            }
+        }
     }
     showContactList()
 }
@@ -213,12 +211,14 @@ function addEmail() {
     var getValue = prompt("Add new email: ");
     var newContact3 = new createContact(getValue)
     console.log(typeof getValue);
-    //document.getElementById("email").innerHTML += getValue;
-    contactList[0].addNewEmail.push('<h5><span class="badge badge-secondary"  id="phoneNumber1">'+getValue+'</span></h5>')
-    console.log(contactList[0].addNewEmail);
     
+    if (getValue !== null) {
+        if (getValue !== "") {
+            //document.getElementById("email").innerHTML += getValue;
+            contactList[0].addNewEmail.push('<h5><span class="badge badge-secondary"  id="phoneNumber1">'+getValue+'</span></h5>')
+        }
+    }
     showContactList()
-    
 }
 
 //edit first name  
@@ -246,10 +246,11 @@ function editLastName(editLastName) {
     for (var i = 0; i < contactList.length; i++) {
         
         var editLastName = editLastName.toString();
-        
+    if (editLastName !== null && editLastName !== "") {
         if(contactList[i].lastName === editLastName) {
             contactList[i].lastName = editLast;
         }
+    }
     }
     showContactList(); 
 }
