@@ -240,7 +240,9 @@ function showContactList() {
     document.getElementById('contactList').innerHTML = '';
     // check if contact list is not empty
     if(contactList && contactList.length) {
-    // loop through the array, and display contacts
+      // sort contact list by last name
+      contactList = contactList.sort(compareByName);
+      // loop through the array, and display contacts
         contactList.forEach(function(index){
             showList(index);
         });
@@ -248,4 +250,12 @@ function showContactList() {
     document.querySelector("hr:first-child").style.display = "none";
     document.querySelector("li").style.marginTop = "6px";
   } 
+}
+
+function compareByName(a, b) {
+  if (a.lastName < b.lastName)
+    return -1;
+  if (a.lastName > b.lastName)
+    return 1;
+  return 0;
 }
