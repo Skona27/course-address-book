@@ -250,7 +250,6 @@ function editLastName(editLastName) {
         if(contactList[i].lastName === editLastName) {
             contactList[i].lastName = editLast;
         }
-        
     }
     showContactList(); 
 }
