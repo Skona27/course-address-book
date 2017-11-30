@@ -19,7 +19,7 @@ function createContact(id, firstName, lastName, phoneNumber, email, addNumberPho
 }
 
 //unique ID of the sample contact
-var uniqueID = 0;
+var uniqueID = 1;
 
 var contactList = [];
 
@@ -52,65 +52,6 @@ function showList(contactObj) {
     document.getElementById('contactList').innerHTML += '<button onclick="deleteButton('+contactObj.id+')" type="button" class="btn btn-danger btn-sm" id="deleteButton">Delete</button></li>'    
 
 }
-
-//click a button to create a new contact and show it in the list
-document.getElementById("createNewContact").addEventListener('click', function(e){
-    var inputFirstName = document.getElementById("inputFirstName").value;
-    var inputLastName = document.getElementById("inputLastName").value;
-    var inputPhoneNumber = document.getElementById("inputPhoneNumber").value;
-    var inputEmail = document.getElementById("inputEmail").value;
-    var phoneNumberString = Number(inputPhoneNumber);
-    
-    console.log(inputFirstName);
-    //save the contact but first fill all blank spaces
-
-    
-    if (inputFirstName.value === "") {
-        alert("Please type first name");
-    } 
-    else if (inputLastName === "") {
-        alert("Please type last name");
-    } 
-    else if (inputPhoneNumber === "") {
-        alert("Please type phone number");
-    }
-     // alert if user provided not a number
-    else if (Number.isInteger(phoneNumberString) === false) {
-          alert("Not number");
-
-    } 
-    else if (inputEmail === "") {
-        alert("Please type email");
-    } 
-     else {
-
-      //create a contact
-      var newContact = new createContact(uniqueID, inputFirstName, inputLastName, inputPhoneNumber, inputEmail);
-    
-      // add contact to the list of contacts  
-      contactList.push(newContact);
-         
-      //show the contact
-      document.getElementById("contactSubmit").style.display = "block";
-      document.getElementById("contactList").style.display = "none";
-      showContact(newContact);
-      
-      // clear the contact form
-      document.getElementById("inputFirstName").value = "";
-      document.getElementById("inputLastName").value = "";
-      document.getElementById("inputPhoneNumber").value = "";
-      document.getElementById("inputEmail").value = "";
-        
-    document.getElementById("contactSubmit").style.display = "block";
-    document.getElementById("contactList").style.display = "none";
-         
-    //delete sample contact when adding a new contact
-    if (contactList[0].id === 0) {
-    contactList.shift();
-        }
-    }
-  e.preventDefault();
-});
 
 //click to show the list of saved contacts
 document.getElementById('showContactList').addEventListener('click', function(){
