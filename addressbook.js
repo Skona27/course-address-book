@@ -246,7 +246,7 @@ function editLastName(editLastName) {
     for (var i = 0; i < contactList.length; i++) {
         
         var editLastName = editLastName.toString();
-    if (editLastName !== null && editLastName !== "") {
+    if (editLast !== null && editLast !== "") {
         if(contactList[i].lastName === editLastName) {
             contactList[i].lastName = editLast;
         }
