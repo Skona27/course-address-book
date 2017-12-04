@@ -141,6 +141,8 @@ function addPhone() {
             if (Number.isInteger(addNumberPhone1) !== false) {
                 var newContact2 = new createContact(addNumberPhone);
                 contactList[0].addNumberPhone.push('<h5><span class="badge badge-secondary" id="phoneNumber1">'+addNumberPhone+'</span></h5>');
+            } else {
+                alert("Please, type a phone number");
             }
         }
     }

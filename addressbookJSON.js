@@ -7,7 +7,8 @@ function saveContact(e) {
     var inputPhoneNumber = document.getElementById("inputPhoneNumber").value;
     var inputEmail = document.getElementById("inputEmail").value;
     var phoneNumberString = Number(inputPhoneNumber);
-    
+    var getContactCache = JSON.parse(localStorage.getItem('contactCache'));
+
     // save the contact but first fill all blank spaces
     if (inputFirstName.value === "") {
         alert("Please type first name");
@@ -47,24 +48,34 @@ function saveContact(e) {
         // create a contact
         var newContact = new createContact(uniqueID, inputFirstName, inputLastName, inputPhoneNumber, inputEmail);
         
-        // JSON: get contacts from local storage and parse it
-        var getContactCache = JSON.parse(localStorage.getItem('contactCache'));
-        
-        // add contact to the list of contacts  
-        contactList.push(newContact);
-       
-        // add new contact to local storage with existing contacts
-        localStorage.setItem('contactCache', JSON.stringify(contactList));
-        
-        // test if works
-        console.log(JSON.parse(localStorage.getItem('contactCache')));
+        getLocalStorage(getContactCache, newContact);
         
         // show the contact
         showSubmitContact(newContact);
         clearContactForm();
     }
-    console.log(localStorage.getItem('contactCache'));
   e.preventDefault();
+}
+
+function getLocalStorage(getContactCache, newContact) {
+    
+    // clear contacts object 
+    contactList = [];
+    for (const cacheContacts of getContactCache) {
+        
+        // add local storage contacts to the object of contacts  
+        contactList.push(cacheContacts);
+    }
+        // add new contact to the object 
+        contactList.push(newContact); 
+        console.log(contactList);
+
+        // add new contact to local storage with existing contacts
+        localStorage.setItem('contactCache', JSON.stringify(contactList));
+        
+        // test if works
+        console.log(JSON.parse(localStorage.getItem('contactCache')));
+    
 }
 
 // show the contact
