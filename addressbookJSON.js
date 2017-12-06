@@ -1,4 +1,6 @@
-// click a button to create a new contact and show it in the list
+// Set ID number to the number saved in local storage
+uniqueID = JSON.parse(localStorage.getItem('uniqueNum'));
+// Click a button to create a new contact and show it in the list
 document.getElementById("createNewContact").addEventListener('click', saveContact);
     
 function saveContact(e) {
@@ -9,7 +11,7 @@ function saveContact(e) {
     var phoneNumberString = Number(inputPhoneNumber);
     var getContactCache = JSON.parse(localStorage.getItem('contactCache'));
 
-    // save the contact but first fill all blank spaces
+    // Save the contact but first fill all blank spaces
     if (inputFirstName.value === "") {
         alert("Please type first name");
     } 
@@ -22,68 +24,63 @@ function saveContact(e) {
      // alert if user provided not a number
     else if (Number.isInteger(phoneNumberString) === false) {
         alert("Not number");
-
     } 
     else if (inputEmail === "") {
         alert("Please type email");
     } 
     // check if local storage is empty
     else if (localStorage.getItem('contactCache') === null) {
-
-        // create a contact
+        // Set ID to count from 1 when local storage is empty
+        uniqueID = 1;
+        
+        // Create a new contact
         var newContact = new createContact(uniqueID, inputFirstName, inputLastName, inputPhoneNumber, inputEmail);
     
-        // add contact to the list of contacts  
+        // Add contact to the list of contacts  
         contactList.push(newContact);
-        
-        // save contact to browser cache in JSON
+      
+        // Save contact to browser cache in JSON
         localStorage.setItem('contactCache', JSON.stringify(contactList));
+        localStorage.setItem('uniqueNum', JSON.stringify(uniqueID));
         
-        // show the contact
+        // Show the contact
         showSubmitContact(newContact);
         clearContactForm();
                    
     }
+    // When local storage is not empty, add a next contact
     else {
-        // create a contact
+        // Create a contact
         var newContact = new createContact(uniqueID, inputFirstName, inputLastName, inputPhoneNumber, inputEmail);
         
+        // Save contacts to local storage
         getLocalStorage(getContactCache, newContact);
         
-        
-        // show the contact
+        // Show the contact
         showSubmitContact(newContact);
         clearContactForm();
     }
-    
   e.preventDefault();
 }
 
 function getLocalStorage(getContactCache, newContact) {
-
-    var lastNumber = getContactCache.length - 1;
-    var cacheNumber = getContactCache[lastNumber].id;
-    console.log(lastNumber + 1);
-    console.log(cacheNumber);
-    console.log(uniqueID);
-    
-  if (cacheNumber === uniqueID - 1) {
-        uniqueID = lastNumber + 1;
-        console.log(uniqueID);
-  }
-        // clear contacts object 
-        contactList = [];
-        for (const cacheContacts of getContactCache) {
-            // add local storage contacts to the object of contacts  
-            contactList.push(cacheContacts);
+    // Clear array of contacts
+    contactList = [];
+    for (const cacheContacts of getContactCache) {
+        // Add contact to the list of contacts.
+        contactList.push(cacheContacts);
     }
-        // add new contact to the object 
+        // Save new contact in the array
         contactList.push(newContact); 
-        console.log(contactList);
-
-        // add new contact to local storage with existing contacts
-        localStorage.setItem('contactCache', JSON.stringify(contactList))
-
+        
+        // Save ID number in local storage
+        localStorage.setItem('uniqueNum', JSON.stringify(uniqueID));
+        
+        // Add new contact to local storage with existing contacts
+        localStorage.setItem('contactCache', JSON.stringify(contactList));
+        
+        // Test if works
+        console.log(JSON.parse(localStorage.getItem('contactCache')));
 }
 
 // show the contact
