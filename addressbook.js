@@ -35,7 +35,7 @@ function showContact(contactObj) {
 //show the list of contacts
 function showList(contactObj) {
 
-    document.getElementById('contactList').innerHTML += '<hr><li class="list-group-item"; id="contactInList"><h4 id="contactTitle1">'+contactObj.id+'. '+contactObj.getFullName()+'</h4>';  
+    document.getElementById('contactList').innerHTML += '<hr><li class="list-group-item"; id="contactInList"><h4 id="contactTitle1">'+contactObj.id+'. '+contactObj.getFullName()+'</h4>';
 
     document.getElementById('contactList').innerHTML += '<li class="list-group-item">First Name:'+'<h5><span class="badge badge-secondary" id="firstName1" >'+contactObj.firstName+'</span><button type="button" class="btn btn-defualt" id="editButton" onclick="editFirstName('+'\''+contactObj.firstName+'\''+');"><i class="glyphicon glyphicon-edit"></i></button></h5></li>';
 
@@ -55,9 +55,9 @@ function showList(contactObj) {
 
 //click to show the list of saved contacts
 document.getElementById('showContactList').addEventListener('click', function(){
-    
+    var getLocalContacts = JSON.parse(localStorage.getItem('contactCache'))
     // add sample contact
-    if (contactList.length === 0) {
+    if (getLocalContacts.length === 0) {
         
     var newContact = new createContact(uniqueID, "Bill", "Door", "01 234 323 343", "billdoor@microsoft.com");
         
@@ -122,7 +122,6 @@ function deleteButton(idNumber) {
 
         // if name in a contact is the same, delete it
          if (contactList[i].id === idNumber) {
-             
             contactList.splice(i,1);
          }        
     }
@@ -202,12 +201,19 @@ function editLastName(editLastName) {
 function showContactList() {
     // clear contact list content
     document.getElementById('contactList').innerHTML = '';
+    
     // check if contact list is not empty
     if(contactList && contactList.length) {
+        
       // sort contact list by last name
       contactList = contactList.sort(compareByName);
+        
+        var getLocalContacts = JSON.parse(localStorage.getItem('contactCache'));
+        console.log(getLocalContacts);
+        
       // loop through the array, and display contacts
-        contactList.forEach(function(index){
+        getLocalContacts.forEach(function(index){
+            console.log(index);
             showList(index);
         });
         
