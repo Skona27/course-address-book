@@ -220,8 +220,7 @@ function deleteButton(idNumber) {
 // add new number phone to exisiting one
 function addPhone() {
     // Get string
-    var addNumberPhone = prompt("Type a number phone: ", "034 232 323");
-    
+    var addNumberPhone = prompt("Type a number phone: ", "034 232 323");    
     // Change string to number
     var checkIfNumber = Number(addNumberPhone);
     
@@ -231,11 +230,8 @@ function addPhone() {
         if (addNumberPhone !== "") {
             // Check if string or number
             if (Number.isInteger(checkIfNumber) !== false) {
-                // Create a next phone number
-//                var placeNextNumber = new createContact(phoneNumber);
                 // Add a next phone number to exact contact
                 contactList.forEach(function(index){
-                    console.log(index);
                     index.phoneNumber.push(addNumberPhone);
                 });
             } 
@@ -244,47 +240,17 @@ function addPhone() {
             }
         }
     }
-   // showContactList();
     // Loop through all phone numbers array
     for (var i = 0; i < contactList.length; i++) {
-        var showNextContact = contactList[i].phoneNumber.map(function(i) {
-            return i;
-        });
+        var showNextContact = contactList[i].phoneNumber[1];
         showList(showNextContact);
     }
 }
 
-console.log(contactList[0].phoneNumber);
 //edit first name
 function editFirstName() {
-    
-    
-    
+      
 }
-
-
-
-
-
-
-/*    document.getElementById("contactList").innerHTML = '';
-    contactList.forEach(function(index){
-        showList(index);
-    });*/
-
-/*    for(var i = 0; i < arrayOfObjects.length; i++) {
-    var obj = arrayOfObjects[i];
-
-    if(listToDelete.indexOf(obj.id) !== -1) {
-        arrayOfObjects.splice(i, 1);
-    }*/
-    
-    
-/*    var a = contactList.unshift(addNumberPhone);
-    console.log(typeof addNumberPhone);
-    if (addNumberPhone.isInteger === true)
-            contactList[0].phoneNumber = addNumberPhone;*/
-    
 
 function showContactList() {
   // clear contact list content
@@ -300,18 +266,3 @@ function showContactList() {
     document.querySelector("li").style.marginTop = "6px";
   } 
 }
-
-
-
-//other option still need to be fixed
-//$('#contactList').on("click", '#deleteButton', function(){
-//     var i = $(this).closest('#firstName1').text();
-//     
-//     for (var i = 0; i < contactList.length; i++) {
-//        console.log(contactList[i].firstName, $('#firstName1').text());
-//        // if name in a contact is the same, delete it
-//        if (contactList[i].firstName === i)
-//            contactList.splice(i, 1);
-//            console.log("success", $('#firstName1').text(), $(this).find('#firstName').text());
-//     }
-//});
