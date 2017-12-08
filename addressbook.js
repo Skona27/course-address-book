@@ -1,7 +1,9 @@
-// turn off the list of a new contact
+// Turn off the list of a new contact
 document.getElementById("contactList").style.display = "none";
 document.getElementById("contactSubmit").style.display = "none";
-function createContact(id, firstName, lastName, phoneNumber, email, addNumberPhone, addNewEmail) { 
+
+// The constructor function, by convention, starts with a capital letter
+function CreateContact(id, firstName, lastName, phoneNumber, email, addNumberPhone, addNewEmail) { 
     //assign unique ID to the contact
     uniqueID++;
     return{
@@ -18,7 +20,7 @@ function createContact(id, firstName, lastName, phoneNumber, email, addNumberPho
     }
 }
 
-//unique ID of the sample contact
+// Unique ID of the sample contact
 var uniqueID = 1;
 
 var contactList = [];
@@ -59,7 +61,7 @@ document.getElementById('showContactList').addEventListener('click', function(){
     // add sample contact
     if (getLocalContacts.length === 0) {
         
-    var newContact = new createContact(uniqueID, "Bill", "Door", "01 234 323 343", "billdoor@microsoft.com");
+    var newContact = new CreateContact(uniqueID, "Bill", "Door", "01 234 323 343", "billdoor@microsoft.com");
         
         contactList.push(newContact);
         showContact(newContact);
@@ -91,7 +93,7 @@ document.querySelector("#contactList").addEventListener('click', function(e){
     var email = contact.email;
 
     //create a duplicated contact
-    var newContact = new createContact(uniqueID, firstName, lastName, phoneNumber, email);
+    var newContact = new CreateContact(uniqueID, firstName, lastName, phoneNumber, email);
     // push contact to contact list
     contactList.push(newContact);
 
@@ -138,7 +140,7 @@ function addPhone() {
     if (addNumberPhone !== null) {
         if (addNumberPhone !== "") {
             if (Number.isInteger(addNumberPhone1) !== false) {
-                var newContact2 = new createContact(addNumberPhone);
+                var newContact2 = new CreateContact(addNumberPhone);
                 contactList[0].addNumberPhone.push('<h5><span class="badge badge-secondary" id="phoneNumber1">'+addNumberPhone+'</span></h5>');
             } else {
                 alert("Please, type a phone number");
@@ -151,7 +153,7 @@ function addPhone() {
 // add new email to exisiting contact
 function addEmail() {
     var getValue = prompt("Add new email: ");
-    var newContact3 = new createContact(getValue)
+    var newContact3 = new CreateContact(getValue)
     console.log(typeof getValue);
     
     if (getValue !== null) {

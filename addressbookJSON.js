@@ -54,7 +54,7 @@ function saveContact(e) {
         var newContact = new createContact(uniqueID, inputFirstName, inputLastName, inputPhoneNumber, inputEmail);
         
         // Save contacts to local storage
-        getLocalStorage(getContactCache, newContact);
+        saveLocalStorage(getContactCache, newContact);
         
         // Show the contact
         showSubmitContact(newContact);
@@ -63,13 +63,14 @@ function saveContact(e) {
   e.preventDefault();
 }
 
-function getLocalStorage(getContactCache, newContact) {
+function saveLocalStorage(getContactCache, newContact) {
     // Clear array of contacts
     contactList = [];
     for (const cacheContacts of getContactCache) {
         // Add contact to the list of contacts.
         contactList.push(cacheContacts);
     }
+
         // Save new contact in the array
         contactList.push(newContact); 
         
@@ -81,6 +82,16 @@ function getLocalStorage(getContactCache, newContact) {
         
         // Test if works
         console.log(JSON.parse(localStorage.getItem('contactCache')));
+}
+
+function getLocalStorage() {
+    
+    const getLocalContacts = JSON.parse(localStorage.getItem('contactCache'));
+        
+    // ShowList(getLocalContacts[0]);
+    console.log(getLocalContacts);
+    
+
 }
 
 // show the contact
