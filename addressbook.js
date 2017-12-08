@@ -1,7 +1,7 @@
 // turn off the list of a new contact
 document.getElementById("contactList").style.display = "none";
 document.getElementById("contactSubmit").style.display = "none";
-function createContact(id, firstName, lastName, phoneNumber, email, addNumberPhone) { 
+function createContact(id, firstName, lastName, phoneNumber, email) { 
     //assign unique ID to the contact
     uniqueID++;
     return{
@@ -9,7 +9,6 @@ function createContact(id, firstName, lastName, phoneNumber, email, addNumberPho
         firstName: firstName,
         lastName: lastName,
         phoneNumber: [phoneNumber],
-        addNumberPhone: [addNumberPhone],
         email: email,
         getFullName: function(){
             return firstName + " " + this.lastName;
@@ -32,15 +31,16 @@ var contactList = [createContact(
     sampleContact.id,
     sampleContact.firstName, 
     sampleContact.lastName,
-    sampleContact.phoneNumber, 
+    sampleContact.phoneNumber,
     sampleContact.email
 )];
 
 function showContact(contactObj) {
   document.getElementById('contactTitle').innerHTML = contactObj.getFullName();    
   document.getElementById('firstName').innerHTML = contactObj.firstName;  
-  document.getElementById('lastName').innerHTML = contactObj.lastName;    
+  document.getElementById('lastName').innerHTML = contactObj.lastName;
   document.getElementById('phoneNumber').innerHTML = contactObj.phoneNumber;
+
   document.getElementById('email').innerHTML = contactObj.email;
 }
 
@@ -54,7 +54,7 @@ function showList(contactObj) {
   document.getElementById('contactList').innerHTML += '<li class="list-group-item">Last Name:'+'<h5><span class="badge badge-secondary" id="lastName1">'+contactObj.lastName+'</span></h5></li>';
     
 
-  document.getElementById('contactList').innerHTML += '<li class="list-group-item">Phone Number:'+'<h5><button onclick="addPhone()" id="addPhone" type="button" class="btn btn-default btn-circle" style="border-radius:30px; float:right; margin-top:-10px;"><i class="glyphicon glyphicon-plus"></i></button><span class="badge badge-secondary" id="phoneNumber1">'+contactObj.phoneNumber+'</span>'+contactObj.addNumberPhone+'</h5></li>';
+  document.getElementById('contactList').innerHTML += '<li class="list-group-item">Phone Number:'+'<h5><button onclick="addPhone()" id="addPhone" type="button" class="btn btn-default btn-circle" style="border-radius:30px; float:right; margin-top:-10px;"><i class="glyphicon glyphicon-plus"></i></button><span class="badge badge-secondary" id="phoneNumber-'+contactObj.id+'">'+contactObj.phoneNumber+'</span></h5></li>';
 
   document.getElementById('contactList').innerHTML += '<li class="list-group-item">Email:'+'<h5><span class="badge badge-secondary" id="email">'+contactObj.email+'</span></h5></li>';
    
@@ -107,8 +107,6 @@ document.getElementById("createNewContact").addEventListener('click', function(e
       document.getElementById("inputPhoneNumber").value = "";
       document.getElementById("inputEmail").value = "";
     }
-
-        contactList.push(newContact);
         //show the contact
         
         document.getElementById("contactSubmit").style.display = "block";
@@ -221,30 +219,42 @@ function deleteButton(idNumber) {
 
 // add new number phone to exisiting one
 function addPhone() {
+    // Get string
     var addNumberPhone = prompt("Type a number phone: ", "034 232 323");
     
-    //check if string or number
-    addNumberPhone = Number(addNumberPhone);
-    console.log(typeof addNumberPhone);
+    // Change string to number
+    var checkIfNumber = Number(addNumberPhone);
     
-    var addNewNumber = addNumberPhone.toString();
-    if (Number.isInteger(addNumberPhone) === false) {
-        alert("It's not a number!");
-    } 
-    else {
-    var newContact2 = new createContact(addNewNumber);
-    contactList[0].addNumberPhone.push('<h5><span class="badge badge-secondary" style="position:relative" id="phoneNumber1">'+addNewNumber+'</span></h5>');  
-        console.log(typeof newContact2);
-//        contactList[0].addNumberPhone.replace(/\,/g,"")
-         console.log(contactList);
+    // Check if user click cancel
+    if (addNumberPhone !== null) {
+        // Check if user submit empty input
+        if (addNumberPhone !== "") {
+            // Check if string or number
+            if (Number.isInteger(checkIfNumber) !== false) {
+                // Create a next phone number
+//                var placeNextNumber = new createContact(phoneNumber);
+                // Add a next phone number to exact contact
+                contactList.forEach(function(index){
+                    console.log(index);
+                    index.phoneNumber.push(addNumberPhone);
+                });
+            } 
+            else {
+                alert("Please, type a phone number");
+            }
+        }
     }
-    
-    /*    var x = contactList.replace(/\,/g,"");
-    console.log(x);*/
-    
- showContactList()
+   // showContactList();
+    // Loop through all phone numbers array
+    for (var i = 0; i < contactList.length; i++) {
+        var showNextContact = contactList[i].phoneNumber.map(function(i) {
+            return i;
+        });
+        showList(showNextContact);
+    }
 }
 
+console.log(contactList[0].phoneNumber);
 //edit first name
 function editFirstName() {
     
