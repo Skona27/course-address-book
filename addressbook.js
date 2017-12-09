@@ -40,21 +40,26 @@ function showContact(contactObj) {
   document.getElementById('firstName').innerHTML = contactObj.firstName;  
   document.getElementById('lastName').innerHTML = contactObj.lastName;
   document.getElementById('phoneNumber').innerHTML = contactObj.phoneNumber;
-
   document.getElementById('email').innerHTML = contactObj.email;
 }
 
 
 //show the list of contacts
 function showList(contactObj) {
-  document.getElementById('contactList').innerHTML += '<hr><li class="list-group-item"; id="contactInList"><h4 id="contactTitle1">'+contactObj.id+". " +contactObj.getFullName()+'</h4>';  
+  document.getElementById('contactList').innerHTML == '<hr><li class="list-group-item"; id="contactInList"><h4 id="contactTitle1">'+contactObj.id+". " +contactObj.getFullName()+'</h4>';  
     
   document.getElementById('contactList').innerHTML += '<li class="list-group-item">First Name:'+'<h5><span class="badge badge-secondary" id="firstName1" >'+contactObj.firstName+'</span><button style="float: right; margin: -5px; background-color: white;" type="button" class="btn btn-defualt" id="editButton" onclick="editFirstName()"><i style="float: right;" class="glyphicon glyphicon-edit"></i></button></h5></li>';
     
   document.getElementById('contactList').innerHTML += '<li class="list-group-item">Last Name:'+'<h5><span class="badge badge-secondary" id="lastName1">'+contactObj.lastName+'</span></h5></li>';
     
 
-  document.getElementById('contactList').innerHTML += '<li class="list-group-item">Phone Number:'+'<h5><button onclick="addPhone()" id="addPhone" type="button" class="btn btn-default btn-circle" style="border-radius:30px; float:right; margin-top:-10px;"><i class="glyphicon glyphicon-plus"></i></button><span class="badge badge-secondary" id="phoneNumber-'+contactObj.id+'">'+contactObj.phoneNumber+'</span></h5></li>';
+  document.getElementById('contactList').innerHTML += '<li class="list-group-item">Phone Number:'+'<h5><button onclick="addPhone()" id="addPhone" type="button" class="btn btn-default btn-circle" style="border-radius:30px; float:right; margin-top:-10px;"><i class="glyphicon glyphicon-plus"></i></button>';
+  
+  contactObj.phoneNumber.forEach(function(number, index){
+    document.getElementById('contactList').innerHTML += '<li><span class="badge badge-secondary" id="phoneNumber-'+index+'">'+number+'</span></li>';
+  });
+  
+  document.getElementById('contactList').innerHTML += '</h5></li>';
 
   document.getElementById('contactList').innerHTML += '<li class="list-group-item">Email:'+'<h5><span class="badge badge-secondary" id="email">'+contactObj.email+'</span></h5></li>';
    
@@ -220,7 +225,7 @@ function deleteButton(idNumber) {
 // add new number phone to exisiting one
 function addPhone() {
     // Get string
-    var addNumberPhone = prompt("Type a number phone: ", "034 232 323");    
+    var addNumberPhone = prompt("Type a number phone: ", "034232323");    
     // Change string to number
     var checkIfNumber = Number(addNumberPhone);
     
@@ -240,11 +245,8 @@ function addPhone() {
             }
         }
     }
-    // Loop through all phone numbers array
-    for (var i = 0; i < contactList.length; i++) {
-        var showNextContact = contactList[i].phoneNumber[1];
-        showList(showNextContact);
-    }
+
+    showContactList();
 }
 
 //edit first name
