@@ -3,40 +3,48 @@ document.getElementById("contactList").style.display = "none";
 document.getElementById("contactSubmit").style.display = "none";
 
 // The constructor function, by convention, starts with a capital letter
-function CreateContact(id, firstName, lastName, phoneNumber, email, addNumberPhone, addNewEmail) { 
+function CreateContact(firstName, lastName, phoneNumber, email, addNumberPhone, addNewEmail) { 
     //assign unique ID to the contact
-    uniqueID++;
-    return{
-        id: id,
-        firstName: firstName,
-        lastName: lastName,
-        phoneNumber: [phoneNumber],
-        addNumberPhone: [addNumberPhone],
-        email: email,
-        addNewEmail: [addNewEmail],
-        getFullName: function(){
-            return firstName + " " + lastName;
-        }
-    }
+        uniqueID++;
+        this.id = uniqueID;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = [phoneNumber];
+        this.addNumberPhone = [addNumberPhone];
+        this.email = email;
+        this.addNewEmail = [addNewEmail];
+
 }
 
+CreateContact.prototype.getFullName = function(){
+            return this.firstName + " " + this.lastName;
+        }
+
 // Unique ID of the sample contact
-var uniqueID = 1;
+var uniqueID = 0;
 
 var contactList = [];
 
 function showContact(contactObj) {
-    document.getElementById('contactTitle').innerHTML = contactObj.getFullName();    
+    document.getElementById('contactTitle').innerHTML = contactObj.getFullName();
     document.getElementById('firstName').innerHTML = contactObj.firstName;  
     document.getElementById('lastName').innerHTML = contactObj.lastName;    
     document.getElementById('phoneNumber').innerHTML = contactObj.phoneNumber;
     document.getElementById('email').innerHTML = contactObj.email;
 }
+/*function showContact(contactTitle) {  
+    document.getElementById('contactTitle').innerHTML = contactTitle.getFullName();
+}*/
 
+/*//show the list of contacts
+function showList(contactTitle) {
+    
+    document.getElementById('contactList').innerHTML += '<hr><li class="list-group-item"; id="contactInList"><h4 id="contactTitle1">'+contactTitle.id+'. '+contactTitle.getFullName()+'</h4>';
+}*/
 
 //show the list of contacts
 function showList(contactObj) {
-
+    
     document.getElementById('contactList').innerHTML += '<hr><li class="list-group-item"; id="contactInList"><h4 id="contactTitle1">'+contactObj.id+'. '+contactObj.getFullName()+'</h4>';
 
     document.getElementById('contactList').innerHTML += '<li class="list-group-item">First Name:'+'<h5><span class="badge badge-secondary" id="firstName1" >'+contactObj.firstName+'</span><button type="button" class="btn btn-defualt" id="editButton" onclick="editFirstName('+'\''+contactObj.firstName+'\''+');"><i class="glyphicon glyphicon-edit"></i></button></h5></li>';
@@ -57,24 +65,48 @@ function showList(contactObj) {
 
 //click to show the list of saved contacts
 document.getElementById('showContactList').addEventListener('click', function(){
-    var getLocalContacts = JSON.parse(localStorage.getItem('contactCache'))
+    var getLocalContacts = JSON.parse(localStorage.getItem('contactCache'));
     // add sample contact
-    if (getLocalContacts.length === 0) {
+    if (getLocalContacts === null || getLocalContacts.length === 0) {
         
-    var newContact = new CreateContact(uniqueID, "Bill", "Door", "01 234 323 343", "billdoor@microsoft.com");
+        var newContact = new CreateContact("Bill", "Door", "01 234 323 343", "billdoor@microsoft.com");
+//        var createContactTitle = newContact.getFullName();
+        
+        console.log(newContact.getFullName());
         
         contactList.push(newContact);
         showContact(newContact);
+//        showContactTitle(newContact);
+        
+        document.getElementById("contactSubmit").style.display = "none";
+        document.getElementById("contactList").style.display = "block";
+        contactList.forEach(function(index){
+            showList(index);
+        });
+        
+    } else {
+        console.log(getLocalContacts);
+        document.getElementById("contactSubmit").style.display = "none";
+        document.getElementById("contactList").style.display = "block";
+    
+      // loop through the array, and display contacts
+        for (var i = 0; i < getLocalContacts.length; i++) {
+            console.log(getLocalContacts[i].firstName);
+            console.log(getLocalContacts[i]);
+            // Add function getFullName to every objects from local storage
+            getLocalContacts[i].getFullName = function(){
+            return this.firstName + " " + this.lastName;
+            }
+            
+            showContact(getLocalContacts[i]);
+            showList(getLocalContacts[i]);
+            
+        }
+        
+/*        getLocalContacts.forEach(function(index){
+            showList(index);
+        });*/
     }
-    
-    // close the sample contact if shown
-    document.getElementById("contactSubmit").style.display = "none";
-    
-    //  show the contact list
-    document.getElementById("contactList").style.display = "block";
-
-    // refresh contact list
-    showContactList();
 });
 
 //check if the duplicate button was clicked
@@ -93,7 +125,7 @@ document.querySelector("#contactList").addEventListener('click', function(e){
     var email = contact.email;
 
     //create a duplicated contact
-    var newContact = new CreateContact(uniqueID, firstName, lastName, phoneNumber, email);
+    var newContact = new CreateContact(firstName, lastName, phoneNumber, email);
     // push contact to contact list
     contactList.push(newContact);
 
@@ -119,16 +151,24 @@ function getContactByID(id) {
 
 function deleteButton(idNumber) {
 
-    for (var i = 0; i < contactList.length; i++) {
-        console.log(contactList[i].id === idNumber);
-
-        // if name in a contact is the same, delete it
-         if (contactList[i].id === idNumber) {
-            contactList.splice(i,1);
-         }        
-    }
-   //refresh contact list
-   showContactList()
+        var getLocalContacts = JSON.parse(localStorage.getItem('contactCache'));
+        
+        // loop through contacts from local storage
+        for (var i = 0; i <  getLocalContacts.length; i++) {
+            console.log(i);
+            // If a contact ID from local storage is eaqual, delete
+            if (getLocalContacts[i].id === idNumber) {
+                getLocalContacts.splice(i, 1);
+            }
+        }
+        // Save left contacts into local storage    
+        localStorage.setItem('contactCache', JSON.stringify(getLocalContacts));
+        // Clear displayed contacts
+        document.getElementById('contactList').innerHTML = '';
+        // Show new contacts from local storage
+        getLocalContacts.forEach(function(index){
+            showList(index);
+        });
 }
 
 // add new number phone to exisiting one
@@ -211,16 +251,14 @@ function showContactList() {
       contactList = contactList.sort(compareByName);
         
         var getLocalContacts = JSON.parse(localStorage.getItem('contactCache'));
-        console.log(getLocalContacts);
         
       // loop through the array, and display contacts
         getLocalContacts.forEach(function(index){
-            console.log(index);
             showList(index);
         });
         
     //remove hr and add margin to first contact  
-    document.querySelector("hr:first-child").style.display = "none";
+//    document.querySelector("hr:first-child").style.display = "none";
     document.querySelector("li").style.marginTop = "6px";
   } 
 }

@@ -31,10 +31,10 @@ function saveContact(e) {
     // check if local storage is empty
     else if (localStorage.getItem('contactCache') === null) {
         // Set ID to count from 1 when local storage is empty
-        uniqueID = 1;
+        uniqueID = 0;
         
         // Create a new contact
-        var newContact = new createContact(uniqueID, inputFirstName, inputLastName, inputPhoneNumber, inputEmail);
+        var newContact = new CreateContact(inputFirstName, inputLastName, inputPhoneNumber, inputEmail);
     
         // Add contact to the list of contacts  
         contactList.push(newContact);
@@ -50,15 +50,27 @@ function saveContact(e) {
     }
     // When local storage is not empty, add a next contact
     else {
+        
+        var getLocalContacts = JSON.parse(localStorage.getItem('contactCache'))
         // Create a contact
-        var newContact = new createContact(uniqueID, inputFirstName, inputLastName, inputPhoneNumber, inputEmail);
+        var newContact = new CreateContact(inputFirstName, inputLastName, inputPhoneNumber, inputEmail);
         
         // Save contacts to local storage
         saveLocalStorage(getContactCache, newContact);
         
+        // loop through the array, and display contacts
+        for (var i = 0; i < getLocalContacts.length; i++) {
+            console.log(getLocalContacts[i].firstName);
+            console.log(getLocalContacts[i]);
+            // Add function getFullName to every objects from local storage
+            getLocalContacts[i].getFullName = function(){
+            return this.firstName + " " + this.lastName;
+            }
+            
         // Show the contact
         showSubmitContact(newContact);
         clearContactForm();
+        }
     }
   e.preventDefault();
 }
