@@ -35,7 +35,13 @@ function saveContact(e) {
         
         // Create a new contact
         var newContact = new CreateContact(inputFirstName, inputLastName, inputPhoneNumber, inputEmail);
-    
+        
+        // If sample contact exist, delete it
+        if (contactList[0] !== undefined) {
+            contactList = [];
+            document.getElementById('contactList').innerHTML = '';
+            console.log(contactList[0]);
+        }
         // Add contact to the list of contacts  
         contactList.push(newContact);
       
@@ -50,27 +56,22 @@ function saveContact(e) {
     }
     // When local storage is not empty, add a next contact
     else {
-        
-        var getLocalContacts = JSON.parse(localStorage.getItem('contactCache'))
+        // If sample contact exist, delete it
+        if (contactList[0] !== undefined) {
+            contactList = [];
+            document.getElementById('contactList').innerHTML = '';
+            console.log(contactList[0]);
+        }
+        var getLocalContacts = JSON.parse(localStorage.getItem('contactCache'));
         // Create a contact
         var newContact = new CreateContact(inputFirstName, inputLastName, inputPhoneNumber, inputEmail);
         
         // Save contacts to local storage
         saveLocalStorage(getContactCache, newContact);
-        
-        // loop through the array, and display contacts
-        for (var i = 0; i < getLocalContacts.length; i++) {
-            console.log(getLocalContacts[i].firstName);
-            console.log(getLocalContacts[i]);
-            // Add function getFullName to every objects from local storage
-            getLocalContacts[i].getFullName = function(){
-            return this.firstName + " " + this.lastName;
-            }
-            
+
         // Show the contact
         showSubmitContact(newContact);
         clearContactForm();
-        }
     }
   e.preventDefault();
 }
@@ -97,13 +98,16 @@ function saveLocalStorage(getContactCache, newContact) {
 }
 
 function getLocalStorage() {
-    
-    const getLocalContacts = JSON.parse(localStorage.getItem('contactCache'));
-        
-    // ShowList(getLocalContacts[0]);
-    console.log(getLocalContacts);
-    
-
+    var getLocalContacts = JSON.parse(localStorage.getItem('contactCache'))
+    // loop through the array, and display contacts
+    for (var i = 0; i < getLocalContacts.length; i++) {
+        // Add function getFullName to every objects from local storage
+        getLocalContacts[i].getFullName = function(){
+        return this.firstName + " " + this.lastName;
+        }
+        // show full contact with function
+        showList(getLocalContacts[i]);    
+    }
 }
 
 // show the contact

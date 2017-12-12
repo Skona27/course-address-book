@@ -32,15 +32,6 @@ function showContact(contactObj) {
     document.getElementById('phoneNumber').innerHTML = contactObj.phoneNumber;
     document.getElementById('email').innerHTML = contactObj.email;
 }
-/*function showContact(contactTitle) {  
-    document.getElementById('contactTitle').innerHTML = contactTitle.getFullName();
-}*/
-
-/*//show the list of contacts
-function showList(contactTitle) {
-    
-    document.getElementById('contactList').innerHTML += '<hr><li class="list-group-item"; id="contactInList"><h4 id="contactTitle1">'+contactTitle.id+'. '+contactTitle.getFullName()+'</h4>';
-}*/
 
 //show the list of contacts
 function showList(contactObj) {
@@ -68,44 +59,26 @@ document.getElementById('showContactList').addEventListener('click', function(){
     var getLocalContacts = JSON.parse(localStorage.getItem('contactCache'));
     // add sample contact
     if (getLocalContacts === null || getLocalContacts.length === 0) {
-        
-        var newContact = new CreateContact("Bill", "Door", "01 234 323 343", "billdoor@microsoft.com");
-//        var createContactTitle = newContact.getFullName();
-        
-        console.log(newContact.getFullName());
-        
-        contactList.push(newContact);
-        showContact(newContact);
-//        showContactTitle(newContact);
-        
-        document.getElementById("contactSubmit").style.display = "none";
-        document.getElementById("contactList").style.display = "block";
-        contactList.forEach(function(index){
-            showList(index);
-        });
-        
-    } else {
-        console.log(getLocalContacts);
-        document.getElementById("contactSubmit").style.display = "none";
-        document.getElementById("contactList").style.display = "block";
-    
-      // loop through the array, and display contacts
-        for (var i = 0; i < getLocalContacts.length; i++) {
-            console.log(getLocalContacts[i].firstName);
-            console.log(getLocalContacts[i]);
-            // Add function getFullName to every objects from local storage
-            getLocalContacts[i].getFullName = function(){
-            return this.firstName + " " + this.lastName;
-            }
-            
-            showContact(getLocalContacts[i]);
-            showList(getLocalContacts[i]);
-            
+        // Check if array is empty and don't double the sample contact
+        if (contactList[0] === undefined){
+            // Create sample contact
+            var newContact = new CreateContact("Bill", "Door", "01 234 323 343", "billdoor@microsoft.com");
+            // Push it to contact array
+            contactList.push(newContact);
+
+            // Display sample contact
+            document.getElementById("contactSubmit").style.display = "none";
+            document.getElementById("contactList").style.display = "block";
+            showList(newContact);
+
         }
-        
-/*        getLocalContacts.forEach(function(index){
-            showList(index);
-        });*/
+    } 
+    else {       
+        document.getElementById('contactList').innerHTML = '';
+        document.getElementById("contactSubmit").style.display = "none";
+        document.getElementById("contactList").style.display = "block";
+        // loop through the array, and display contacts
+        getLocalStorage()
     }
 });
 
@@ -166,9 +139,7 @@ function deleteButton(idNumber) {
         // Clear displayed contacts
         document.getElementById('contactList').innerHTML = '';
         // Show new contacts from local storage
-        getLocalContacts.forEach(function(index){
-            showList(index);
-        });
+        getLocalStorage()
 }
 
 // add new number phone to exisiting one
