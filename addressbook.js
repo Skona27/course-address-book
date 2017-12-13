@@ -38,9 +38,9 @@ function showList(contactObj) {
     
     document.getElementById('contactList').innerHTML += '<hr><li class="list-group-item"; id="contactInList"><h4 id="contactTitle1">'+contactObj.id+'. '+contactObj.getFullName()+'</h4>';
 
-    document.getElementById('contactList').innerHTML += '<li class="list-group-item">First Name:'+'<h5><span class="badge badge-secondary" id="firstName1" >'+contactObj.firstName+'</span><button type="button" class="btn btn-defualt" id="editButton" onclick="editFirstName('+'\''+contactObj.firstName+'\''+');"><i class="glyphicon glyphicon-edit"></i></button></h5></li>';
+    document.getElementById('contactList').innerHTML += '<li class="list-group-item">First Name:'+'<h5><span class="badge badge-secondary" id="firstName1" >'+contactObj.firstName+'</span><button type="button" class="btn btn-primary" id="editButton" onclick="editFirstName('+'\''+contactObj.firstName+'\''+');"><i class="glyphicon glyphicon-edit"></i></button></h5></li>';
 
-    document.getElementById('contactList').innerHTML += '<li class="list-group-item">Last Name:'+'<h5><span class="badge badge-secondary" id="lastName1">'+contactObj.lastName+'</span><button type="button" class="btn btn-defualt" id="editButton" onclick="editLastName('+'\''+contactObj.lastName+'\''+');"><i class="glyphicon glyphicon-edit"></i></button></h5></li>';
+    document.getElementById('contactList').innerHTML += '<li class="list-group-item">Last Name:'+'<h5><span class="badge badge-secondary" id="lastName1">'+contactObj.lastName+'</span><button type="button" class="btn btn-primary" id="editButton" onclick="editLastName('+'\''+contactObj.lastName+'\''+');"><i class="glyphicon glyphicon-edit"></i></button></h5></li>';
     
 
     document.getElementById('contactList').innerHTML += '<li class="list-group-item">Phone Number:'+'<h5><button onclick="addPhone()" id="addPhone" type="button" class="btn btn-default btn-circle"><i class="glyphicon glyphicon-plus"></i></button><span class="badge badge-secondary" id="phoneNumber1">'+contactObj.phoneNumber+'</span>'+contactObj.addNumberPhone+'</h5></li>';
@@ -179,18 +179,45 @@ function addEmail() {
 // edit first name  
 function editFirstName(editFirstName) {
     var editFirst = prompt("Type new first name: ");
+    var getLocalContacts = JSON.parse(localStorage.getItem('contactCache')); 
+    var editFirstName = editFirstName.toString();
     
+/*    if(getLocalContacts !== null) {
+    // Edit first name for sample contact
     for (var i = 0; i < contactList.length; i++) {
-        var editFirstName = editFirstName.toString();  
-        
-    // prevent from accepting empty field and null (cancel button) 
+        // prevent from accepting empty field and null (cancel button) 
         if (editFirst !== null && editFirst !== "") {
-            if (contactList[i].firstName === editFirstName) {
+            // Check if first name is equal to clicked button
+            if (contactList[i].firstName === editFirstName){
                 contactList[i].firstName = editFirst;
+                console.log(contactList[i].firstName);
             }
         } 
     }
-    showContactList();  
+    }*/
+    
+    
+    if(getLocalContacts !== null) {
+        // Edit first name for added contacts to local storage
+        // Check if local storage is not empty
+        for (var i = 0; i < getLocalContacts.length; i++) {
+
+            // Check if local storage is empty
+             if (getLocalContacts[i].firstName === editFirstName) {
+                // Change existing first name to new one
+                getLocalContacts[i].firstName = editFirst;
+                localStorage.setItem('contactCache', JSON.stringify(getLocalContacts));
+             }
+             
+        // Add function getFullName to every objects from local storage
+        getLocalContacts[i].getFullName = function(){
+            return this.firstName + " " + this.lastName;
+        }
+        document.getElementById('contactList').innerHTML = '';
+        showList(getLocalContacts[i]);
+        }
+    }
+     
 }   
 
 // edit last name  
