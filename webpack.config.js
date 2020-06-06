@@ -1,14 +1,14 @@
-const path = require('path');
-const CopyPlugin = require('copy-webpack-plugin');
+const path = require("path");
+const CopyPlugin = require("copy-webpack-plugin");
 
-module.exports = env => ({
-  entry: './src/index.ts',
+module.exports = (env) => ({
+  entry: "./src/index.ts",
   mode: env && env.NODE_ENV === "production" ? "production" : "development",
   plugins: [
     new CopyPlugin({
       patterns: [
-        { from: './src/index.html', to: './index.html' },
-        { from: './src/style.css', to: './style.css' },
+        { from: "./src/index.html", to: "./index.html" },
+        { from: "./src/style.css", to: "./style.css" },
       ],
     }),
   ],
@@ -16,16 +16,16 @@ module.exports = env => ({
     rules: [
       {
         test: /\.ts?$/,
-        use: 'ts-loader',
+        use: "ts-loader",
         exclude: /node_modules/,
       },
     ],
   },
   resolve: {
-    extensions: ['.ts', '.js'],
+    extensions: [".ts", ".js"],
   },
   output: {
-    filename: 'index.js',
-    path: path.resolve(__dirname, 'dist'),
+    filename: "index.js",
+    path: path.resolve(__dirname, "dist"),
   },
 });
