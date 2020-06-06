@@ -1,0 +1,22 @@
+{
+  "name": "course-address-book",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "repository": "https://github.com/BinarForge/course-address-book.git",
+  "author": "Skona27 <skoneczny.j@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "webpack --watch",
+    "build": "webpack --env.NODE_ENV=production",
+    "serve": "live-server dist"
+  },
+  "devDependencies": {
+    "copy-webpack-plugin": "^6.0.2",
+    "live-server": "^1.2.1",
+    "prettier": "^2.0.5",
+    "ts-loader": "^7.0.5",
+    "typescript": "^3.9.5",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11"
+  }
+}
