@@ -1,34 +1,46 @@
-import { generateId } from "./generateId";
+function generateId() {
+  return "_" + Math.random().toString(36).substr(2, 9);
+}
 
-type Contact = {
+export type Contact = {
+  id: string;
   firstName: string;
   lastName: string;
-  phoneNumber: string;
-  email: string;
-  addNumberPhone?: string;
-  addNewEmail?: string;
+  phoneNumbers: [string];
+  emails: [string];
+  getFullName: () => string;
+  addPhoneNumber: (phone: string) => void;
+  addEmail: (email: string) => void;
+  editFirstName: (firstName: string) => void;
 };
 
-export function createContact(contact: Contact) {
-  const {
-    email,
-    firstName,
-    lastName,
-    phoneNumber,
-    addNewEmail,
-    addNumberPhone,
-  } = contact;
+export type ContactDTO = {
+  firstName: string;
+  lastName: string;
+  phoneNumbers: [string];
+  emails: [string];
+};
+
+export function createContact(contact: ContactDTO): Contact {
+  const { emails, firstName, lastName, phoneNumbers } = contact;
 
   return {
     id: generateId(),
-    firstName: firstName,
-    lastName: lastName,
-    email: email,
-    phoneNumber: [phoneNumber],
-    addNumberPhone: [addNumberPhone],
-    addNewEmail: [addNewEmail],
+    firstName,
+    lastName,
+    emails,
+    phoneNumbers,
     getFullName: function () {
       return firstName + " " + this.lastName;
+    },
+    addPhoneNumber: function (phone) {
+      this.phoneNumbers = [...this.phoneNumbers, phone];
+    },
+    addEmail: function (email) {
+      this.emails = [...this.emails, email];
+    },
+    editFirstName: function (firstName) {
+      this.firstName = firstName;
     },
   };
 }
